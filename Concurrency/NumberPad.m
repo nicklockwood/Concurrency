@@ -15,14 +15,9 @@
     return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil][0];
 }
 
-- (IBAction)pressedNumber:(UIButton *)sender
+- (IBAction)pressedButton:(UIButton *)sender
 {
-    [self.textField insertText:[@(sender.tag) stringValue]];
-}
-
-- (IBAction)pressedPeriod
-{
-    [self.textField insertText:@"."];
+    [self.textField insertText:sender.titleLabel.text];
 }
 
 - (IBAction)pressedDelete

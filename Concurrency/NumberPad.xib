@@ -29,7 +29,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedNumber:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="Ei5-72-PCq"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="ViS-Vz-veb"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lc4-lx-ySU" customClass="Button">
@@ -45,7 +45,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedNumber:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="Wq1-lw-1ya"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="3cY-4t-Ev3"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yzM-it-m6d" customClass="Button">
@@ -61,7 +61,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedNumber:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="dvb-cU-Rlf"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="0aU-tX-vHy"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xr7-nj-zOu" customClass="Button">
@@ -77,7 +77,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedNumber:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="n5f-m5-gbO"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="b1m-e8-gfw"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JWW-IX-Kb1" customClass="Button">
@@ -93,7 +93,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedNumber:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="rhm-wT-Lja"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="6LK-SI-h3f"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSq-1N-QeM" customClass="Button">
@@ -109,7 +109,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedNumber:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="buI-Qd-W14"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="NeN-Qf-2M9"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bxa-g3-kN4" customClass="Button">
@@ -125,7 +125,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedPeriod" destination="kgT-7J-1BZ" eventType="touchUpInside" id="R1n-bq-Bnz"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="kLl-2m-AYK"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Igi-R7-o82" customClass="Button">
@@ -141,7 +141,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedNumber:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="Gcj-JK-igm"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="J3F-Kj-71w"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Sk-Fa-t6a" customClass="Button">
@@ -175,7 +175,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedNumber:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="Kkd-tg-aDd"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="Sn2-8g-Dhl"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcw-E4-lfC" customClass="Button">
@@ -191,7 +191,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedNumber:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="iL9-nr-qkc"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="frv-6N-2BG"/>
                             </connections>
                         </button>
                         <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLN-R6-aGF" customClass="Button">
@@ -207,7 +207,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="8"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="pressedNumber:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="WRH-FT-bN6"/>
+                                <action selector="pressedButton:" destination="kgT-7J-1BZ" eventType="touchUpInside" id="Ghl-cl-QOz"/>
                             </connections>
                         </button>
                     </subviews>

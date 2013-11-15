@@ -11,7 +11,7 @@
 
 
 NSString *const CurrenciesUpdatedNotification = @"CurrenciesUpdatedNotification";
-static NSString *const UpdateURL = @"http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
+static NSString *const UpdateURL = @"https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
 static NSString *const EnabledCurrenciesKey = @"EnabledCurrencies";
 
 
@@ -95,11 +95,7 @@ static NSString *const EnabledCurrenciesKey = @"EnabledCurrencies";
 
 - (BOOL)writeToFile:(NSString *)path atomically:(BOOL)atomically
 {
-    NSMutableArray *currencies = [NSMutableArray arrayWithCapacity:[_allCurrencies count]];
-    for (Currency *currency in _allCurrencies)
-    {
-        [currencies addObject:[currency dictionaryRepresentation]];
-    }
+    NSMutableArray *currencies = [_allCurrencies valueForKeyPath:@"dictionaryRepresentation"];
     return [@{@"lastUpdated": _lastUpdated, @"currencies": currencies} writeToFile:path atomically:atomically];
 }
 

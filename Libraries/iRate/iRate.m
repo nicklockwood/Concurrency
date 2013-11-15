@@ -1,7 +1,7 @@
 //
 //  iRate.m
 //
-//  Version 1.8.1
+//  Version 1.8.2
 //
 //  Created by Nick Lockwood on 26/01/2011.
 //  Copyright 2011 Charcoal Design
@@ -614,6 +614,12 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
 
 - (void)checkForConnectivityInBackground
 {
+    if ([NSThread isMainThread])
+    {
+        [self performSelectorInBackground:@selector(checkForConnectivityInBackground) withObject:nil];
+        return;
+    }
+    
     @autoreleasepool
     {
         //prevent concurrent checks
@@ -756,7 +762,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
     if (!self.checkingForPrompt && !self.checkingForAppStoreID)
     {
         self.checkingForPrompt = YES;
-        [self performSelectorInBackground:@selector(checkForConnectivityInBackground) withObject:nil];
+        [self checkForConnectivityInBackground];
     }
 }
 
@@ -859,7 +865,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         self.checkingForAppStoreID = YES;
         if (!self.checkingForPrompt)
         {
-            [self performSelectorInBackground:@selector(checkForConnectivityInBackground) withObject:nil];
+            [self checkForConnectivityInBackground];
         }
         return;
     }
@@ -1035,7 +1041,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         self.checkingForAppStoreID = YES;
         if (!self.checkingForPrompt)
         {
-            [self performSelectorInBackground:@selector(checkForConnectivityInBackground) withObject:nil];
+            [self checkForConnectivityInBackground];
         }
         return;
     }
