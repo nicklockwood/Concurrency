@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4457.9" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3682.9"/>
+        <deployment defaultVersion="1552" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
@@ -20,12 +20,12 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="a83-C2-IHO">
-                    <rect key="frame" x="40" y="0.0" width="240" height="284"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="b7i-jr-bPJ" customClass="PickerView">
-                            <rect key="frame" x="0.0" y="0.0" width="240" height="284"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="cmK-9T-Hbv"/>
@@ -35,12 +35,12 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="vIp-6T-7Yd">
-                    <rect key="frame" x="40" y="284" width="240" height="284"/>
+                    <rect key="frame" x="0.0" y="284" width="320" height="284"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="L6S-9p-Ck1" customClass="PickerView">
-                            <rect key="frame" x="0.0" y="0.0" width="240" height="284"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="KsK-x6-oN0"/>
@@ -72,6 +72,8 @@
             <gestureRecognizers/>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="7kW-bj-XTn" appends="YES" id="9Ij-kh-yaj"/>
+                <outletCollection property="gestureRecognizers" destination="BV5-UD-Z3X" appends="YES" id="cf8-OL-Q3i"/>
+                <outletCollection property="gestureRecognizers" destination="QAO-vB-DJ3" appends="YES" id="Z1A-6y-453"/>
             </connections>
         </view>
         <tapGestureRecognizer id="7kW-bj-XTn">
@@ -79,34 +81,15 @@
                 <action selector="dismissKeyboard" destination="-1" id="PaI-bV-tBO"/>
             </connections>
         </tapGestureRecognizer>
+        <swipeGestureRecognizer direction="up" id="BV5-UD-Z3X" userLabel="Up Swipe">
+            <connections>
+                <action selector="dismissKeyboard" destination="L6S-9p-Ck1" id="CpG-TJ-v72"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="down" id="QAO-vB-DJ3" userLabel="Down Swipe">
+            <connections>
+                <action selector="dismissKeyboard" destination="b7i-jr-bPJ" id="Qjd-yj-Ync"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
-    <classes>
-        <class className="MainViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="bottomPicker" candidateClass="PickerView"/>
-                <relationship kind="outlet" name="fromCurrencyLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="toCurrencyLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="topPicker" candidateClass="PickerView"/>
-            </relationships>
-        </class>
-        <class className="PickerView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PickerView.h"/>
-            <relationships>
-                <relationship kind="action" name="dismissKeyboard"/>
-                <relationship kind="action" name="reloadData"/>
-                <relationship kind="outlet" name="carousel" candidateClass="iCarousel"/>
-                <relationship kind="outlet" name="delegate"/>
-                <relationship kind="outlet" name="inputField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="overlayView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="iCarousel" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/iCarousel.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dataSource"/>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-    </classes>
 </document>

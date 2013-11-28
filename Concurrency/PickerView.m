@@ -150,9 +150,8 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.selected = YES;
-    NSString *text = textField.text;
-    textField.text = @"";
-    [textField setMarkedText:text selectedRange:NSMakeRange(0, 0)];
+    [textField performSelectorOnMainThread:@selector(selectAll:) withObject:nil waitUntilDone:NO];
+     
     [self.delegate pickerViewDidAcceptFirstResponder:self];
 }
 

@@ -41,21 +41,6 @@
                                                object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self.topPicker reloadData];
-    [self.bottomPicker reloadData];
-    [self pickerViewCurrencyDidChange:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self.topPicker resignFirstResponder];
-    [self.bottomPicker resignFirstResponder];
-}
-
 - (void)viewDidUnload
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -72,6 +57,7 @@
 {
     [self.topPicker reloadData];
     [self.bottomPicker reloadData];
+    [self pickerViewCurrencyDidChange:nil];
 }
 
 - (IBAction)dismissKeyboard

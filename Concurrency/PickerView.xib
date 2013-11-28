@@ -14,12 +14,12 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="hUP-ZM-d3V">
-            <rect key="frame" x="0.0" y="0.0" width="240" height="284"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view multipleTouchEnabled="YES" contentMode="scaleToFill" id="Ssc-MU-zjL" customClass="iCarousel">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="284"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" id="Ssc-MU-zjL" customClass="iCarousel">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -30,8 +30,8 @@
                     </connections>
                 </view>
                 <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" id="2As-qD-LXy">
-                    <rect key="frame" x="50" y="0.0" width="190" height="284"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <rect key="frame" x="90" y="0.0" width="190" height="284"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="o7W-Nq-XHu">
                             <rect key="frame" x="0.0" y="121" width="190" height="41"/>
@@ -49,7 +49,7 @@
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="ag8-UV-9W7">
-                            <rect key="frame" x="-50" y="161" width="240" height="1"/>
+                            <rect key="frame" x="-50" y="162" width="240" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -61,8 +61,8 @@
                     </connections>
                 </view>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="15" id="TSk-NS-ZEI" customClass="NumberField">
-                    <rect key="frame" x="55" y="117" width="185" height="50"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="95" y="126" width="185" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>

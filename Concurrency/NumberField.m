@@ -38,4 +38,16 @@
     }
 }
 
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    if (action == @selector(cut:) ||
+        action == @selector(copy:) ||
+        action == @selector(paste:) ||
+        action == @selector(select:))
+    {
+        return [super canPerformAction:action withSender:sender];
+    }
+    return NO;
+}
+
 @end

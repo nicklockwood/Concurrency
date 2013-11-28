@@ -12,7 +12,10 @@
 
 + (instancetype)instance
 {
-    return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil][0];
+    NumberPad *instance = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil][0];
+    instance.layer.shouldRasterize = YES;
+    instance.layer.rasterizationScale = 2;
+    return instance;
 }
 
 - (IBAction)pressedButton:(UIButton *)sender

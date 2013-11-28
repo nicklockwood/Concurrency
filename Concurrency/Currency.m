@@ -25,8 +25,8 @@
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"code"] = _code;
-    dict[@"symbol"] = _symbol;
-    dict[@"name"] = _name;
+    dict[@"symbol"] = _symbol ?: @"";
+    dict[@"name"] = _name ?: @"";
     dict[@"rate"] = @(_rate);
     dict[@"enabled"] = @(_enabled);
     return dict;

@@ -1,7 +1,7 @@
 //
 //  CubeController.h
 //
-//  Version 1.0.1
+//  Version 1.2
 //
 //  Created by Nick Lockwood on 30/06/2013.
 //  Copyright (c) 2013 Charcoal Design
@@ -31,10 +31,14 @@
 //
 
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wauto-import"
+#pragma GCC diagnostic ignored "-Wobjc-missing-property-synthesis"
+
+
 #import <UIKit/UIKit.h>
 
 
-#import <Availability.h>
 #undef weak_delegate
 #if __has_feature(objc_arc) && __has_feature(objc_arc_weak)
 #define weak_delegate weak
@@ -52,7 +56,9 @@
 @property (nonatomic, weak_delegate) id<CubeControllerDelegate> delegate;
 @property (nonatomic, readonly) NSInteger numberOfViewControllers;
 @property (nonatomic, assign) NSInteger currentViewControllerIndex;
+@property (nonatomic, getter = isWrapEnabled) BOOL wrapEnabled;
 
+- (void)reloadData;
 - (void)scrollToViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated;
 
 @end
@@ -79,3 +85,13 @@
 - (void)cubeControllerDidEndScrollingAnimation:(CubeController *)cubeController;
 
 @end
+
+
+@interface UIViewController (CubeController)
+
+@property (nonatomic, readonly) CubeController *cubeController;
+
+@end
+
+
+#pragma GCC diagnostic pop

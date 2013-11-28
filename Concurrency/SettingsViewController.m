@@ -13,7 +13,6 @@
 
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UINib *cellNib;
 @property (nonatomic, strong) IBOutlet UILabel *footer;
 
 @end
@@ -29,10 +28,10 @@
     
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 7.0)
     {
-        ((UIView *)self.refreshControl.subviews[0]).transform = CGAffineTransformMakeTranslation(0, 20);
-        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+        self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(20, 0, 0, 0);
     }
-        
+    
     [self.tableView registerNib:[CurrencyCell nib] forCellReuseIdentifier:[CurrencyCell reuseIdentifier]];
     self.tableView.tableFooterView = self.footer;
     [self updateFooter];

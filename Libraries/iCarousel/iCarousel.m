@@ -1,7 +1,7 @@
 //
 //  iCarousel.m
 //
-//  Version 1.8 beta 9
+//  Version 1.8 beta 12
 //
 //  Created by Nick Lockwood on 01/04/2011.
 //  Copyright 2011 Charcoal Design
@@ -100,6 +100,7 @@
 @property (nonatomic, assign) NSTimeInterval scrollDuration;
 @property (nonatomic, assign, getter = isScrolling) BOOL scrolling;
 @property (nonatomic, assign) NSTimeInterval startTime;
+@property (nonatomic, assign) NSTimeInterval lastTime;
 @property (nonatomic, assign) CGFloat startVelocity;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign, getter = isDecelerating) BOOL decelerating;
@@ -253,6 +254,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     if (_scrollOffset != scrollOffset)
     {
         _scrollOffset = scrollOffset;
+        [self depthSortViews];
         [self didScroll];
     }
 }
@@ -286,6 +288,15 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     {
         _contentOffset = contentOffset;
         [self layOutItemViews];
+    }
+}
+
+- (void)setAutoscroll:(CGFloat)autoscroll
+{
+    if (_autoscroll != autoscroll)
+    {
+        _autoscroll = autoscroll;
+        if (autoscroll != 0.0f) [self startAnimation];
     }
 }
 
@@ -841,13 +852,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     view.superview.hidden = !(showBackfaces ?: (transform.m33 > 0.0f));
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    _contentView.frame = self.bounds;
-    [self layOutItemViews];
-}
-
 #ifdef ICAROUSEL_MACOS
 
 - (void)resizeSubviewsWithOldSize:(NSSize)oldSize
@@ -856,6 +860,15 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     _contentView.frame = self.bounds;
     [self layOutItemViews];
     [self popAnimationState];
+}
+
+#else
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    _contentView.frame = self.bounds;
+    [self layOutItemViews];
 }
 
 #endif
@@ -1697,6 +1710,8 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 {
     [self pushAnimationState:NO];
     NSTimeInterval currentTime = CACurrentMediaTime();
+    double delta = _lastTime - currentTime;
+    _lastTime = currentTime;
     
     if (_toggle != 0.0f)
     {
@@ -1765,6 +1780,10 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
                 _toggle = fmaxf(-1.0f, fminf(1.0f, -difference));
             }
         }
+    }
+    else if (_autoscroll && !_dragging)
+    {
+        self.scrollOffset += delta * _autoscroll;
     }
     else if (_toggle == 0.0f)
     {
@@ -1878,33 +1897,33 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 - (BOOL)viewOrSuperview:(UIView *)view implementsSelector:(SEL)selector
 {
+    if (!view || view == self.contentView)
+    {
+        return NO;
+    }
+    
     //thanks to @mattjgalloway and @shaps for idea
     //https://gist.github.com/mattjgalloway/6279363
     //https://gist.github.com/shaps80/6279008
     
     Class viewClass = [view class];
-	while (viewClass && viewClass != [UIView class])
+    while (viewClass && viewClass != [UIView class])
     {
-		unsigned int numberOfMethods;
-		Method *methods = class_copyMethodList(viewClass, &numberOfMethods);
-		for (unsigned int i = 0; i < numberOfMethods; i++)
+        unsigned int numberOfMethods;
+        Method *methods = class_copyMethodList(viewClass, &numberOfMethods);
+        for (unsigned int i = 0; i < numberOfMethods; i++)
         {
-			if (method_getName(methods[i]) == selector)
+            if (method_getName(methods[i]) == selector)
             {
                 free(methods);
-				return YES;
-			}
-		}
+                return YES;
+            }
+        }
         if (methods) free(methods);
-		viewClass = [viewClass superclass];
-	}
-    
-    if (view.superview && view.superview != self.contentView)
-    {
-        return [self viewOrSuperview:view.superview implementsSelector:selector];
+        viewClass = [viewClass superclass];
     }
     
-	return NO;
+    return [self viewOrSuperview:view.superview implementsSelector:selector];
 }
 
 - (id)viewOrSuperview:(UIView *)view ofClass:(Class)class
@@ -1922,6 +1941,13 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gesture shouldReceiveTouch:(UITouch *)touch
 {
+    if (_scrollEnabled)
+    {
+        _dragging = NO;
+        _scrolling = NO;
+        _decelerating = NO;
+    }
+    
     if ([gesture isKindOfClass:[UITapGestureRecognizer class]])
     {
         //handle tap
@@ -1987,11 +2013,16 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     NSInteger index = [self indexOfItemView:[tapGesture.view.subviews lastObject]];
     if (!_delegate || [_delegate carousel:self shouldSelectItemAtIndex:index])
     {
-        if (_centerItemWhenSelected && index != self.currentItemIndex)
+        if ((index != self.currentItemIndex && _centerItemWhenSelected) ||
+            (index == self.currentItemIndex && _scrollToItemBoundary))
         {
             [self scrollToItemAtIndex:index animated:YES];
         }
         [_delegate carousel:self didSelectItemAtIndex:index];
+    }
+    else if (_scrollEnabled && _scrollToItemBoundary)
+    {
+        [self scrollToItemAtIndex:self.currentItemIndex animated:YES];
     }
 }
 
@@ -2025,22 +2056,29 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
                 [_delegate carouselDidEndDragging:self willDecelerate:_decelerating];
                 [self popAnimationState];
                 
-                if (!_decelerating && (_scrollToItemBoundary || (_scrollOffset - [self clampedOffset:_scrollOffset]) != 0.0f))
+                if (!_decelerating)
                 {
-                    if (fabsf(_scrollOffset - self.currentItemIndex) < 0.01f)
+                    if (_scrollToItemBoundary || (_scrollOffset - [self clampedOffset:_scrollOffset]) != 0.0f)
                     {
-                        //call scroll to trigger events for legacy support reasons
-                        //even though technically we don't need to scroll at all
-                        [self scrollToItemAtIndex:self.currentItemIndex duration:0.01];
-                    }
-                    else if ([self shouldScroll])
-                    {
-                        NSInteger direction = (int)(_startVelocity / fabsf(_startVelocity));
-                        [self scrollToItemAtIndex:self.currentItemIndex + direction animated:YES];
+                        if (fabsf(_scrollOffset - self.currentItemIndex) < 0.01f)
+                        {
+                            //call scroll to trigger events for legacy support reasons
+                            //even though technically we don't need to scroll at all
+                            [self scrollToItemAtIndex:self.currentItemIndex duration:0.01];
+                        }
+                        else if ([self shouldScroll])
+                        {
+                            NSInteger direction = (int)(_startVelocity / fabsf(_startVelocity));
+                            [self scrollToItemAtIndex:self.currentItemIndex + direction animated:YES];
+                        }
+                        else
+                        {
+                            [self scrollToItemAtIndex:self.currentItemIndex animated:YES];
+                        }
                     }
                     else
                     {
-                        [self scrollToItemAtIndex:self.currentItemIndex animated:YES];
+                        [self depthSortViews];
                     }
                 }
                 else
