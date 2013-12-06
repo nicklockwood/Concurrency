@@ -41,9 +41,9 @@
 
 - (void)configureWithCurrency:(Currency *)currency
 {
-    self.symbolLabel.text = [currency.symbol length]? currency.symbol: currency.code;
-    self.symbolLabel.font = [self.symbolLabel.font fontWithSize:[currency.symbol length]? 30: 17];
-    self.nameLabel.text = currency.name;
+    self.symbolLabel.text = currency.symbol ?: currency.code ?: @"-";
+    self.symbolLabel.font = [self.symbolLabel.font fontWithSize:currency.symbol? 30: 17];
+    self.nameLabel.text = currency.name ?: @"-";
     self.accessoryType = currency.enabled? UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone;
 }
 

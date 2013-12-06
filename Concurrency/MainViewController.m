@@ -10,6 +10,7 @@
 #import "PickerView.h"
 #import "Currencies.h"
 #import "NumberPad.h"
+#import "ViewUtils.h"
 
 
 @interface MainViewController () <PickerViewDelegate>
@@ -30,11 +31,13 @@
     [super viewDidLoad];
     
     self.numberPad = [NumberPad instance];
+    self.numberPad.layer.rasterizationScale = 2;
     self.topPicker.selected = YES;
     
     self.fromCurrencyLabel.font = [self.fromCurrencyLabel.font fontWithSize:13];
     self.toCurrencyLabel.font = [self.toCurrencyLabel.font fontWithSize:13];
     
+    [self currenciesUpdated];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(currenciesUpdated)
                                                  name:CurrenciesUpdatedNotification
@@ -92,16 +95,29 @@
     self.numberPad.textField = pickerView.inputField;
     if (pickerView == self.bottomPicker)
     {
+        self.numberPad.layer.shouldRasterize = NO;
         self.numberPad.bottom = 0.0f;
         [UIView animateWithDuration:0.4 animations:^{
+            
             self.numberPad.top = 0.0f;
+            
+        } completion:^(BOOL finished) {
+            
+            self.numberPad.layer.shouldRasterize = YES;
+            self.numberPad.layer.rasterizationScale = 2;
         }];
     }
     else
     {
+        self.numberPad.layer.shouldRasterize = NO;
         self.numberPad.top = self.view.bounds.size.height;
         [UIView animateWithDuration:0.4 animations:^{
+            
             self.numberPad.bottom = self.view.bounds.size.height;
+            
+        } completion:^(BOOL finished) {
+            
+            self.numberPad.layer.shouldRasterize = YES;
         }];
     }
     

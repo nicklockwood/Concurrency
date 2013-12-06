@@ -8,14 +8,17 @@
 
 #import "NumberPad.h"
 
+
+@interface NumberPad () <UIGestureRecognizerDelegate>
+
+@end
+
+
 @implementation NumberPad
 
 + (instancetype)instance
 {
-    NumberPad *instance = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil][0];
-    instance.layer.shouldRasterize = YES;
-    instance.layer.rasterizationScale = 2;
-    return instance;
+    return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil][0];
 }
 
 - (IBAction)pressedButton:(UIButton *)sender
@@ -31,6 +34,12 @@
 - (IBAction)heldDelete
 {
     self.textField.text = nil;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    //prevents accidental side-swipe when keyboard is open
+    return YES;
 }
 
 @end

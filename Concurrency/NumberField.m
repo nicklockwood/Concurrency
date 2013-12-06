@@ -31,9 +31,10 @@
     
     UITextRange *selection = [self selectedTextRange];
     [super insertText:text];
-    if ([[self.text stringByReplacingOccurrencesOfString:@"^[0-9]+(\\.[0-9]{0,2})?$" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, [self.text length])] length] > 0 || [self.text doubleValue] > 99999999.99)
+    if ([[self.text stringByReplacingOccurrencesOfString:@"^[0-9]{0,8}(\\.[0-9]{0,2})?$" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, [self.text length])] length] > 0)
     {
-        self.text = previousText;
+        [self selectAll:nil];
+        [super insertText:previousText];
         [self setSelectedTextRange:selection];
     }
 }

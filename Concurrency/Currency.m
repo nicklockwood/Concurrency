@@ -10,13 +10,28 @@
 #import "Currencies.h"
 
 
+#define SET_STRING_IF_NOT_EMPTY(target, string) if([string length]) (target) = (string)
+#define STRING_IF_NOT_EMPTY(string) ([string length])? (string): nil
+
+
 @implementation Currency
+
++ (instancetype)nullCurrency
+{
+    static Currency *currency = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        currency = [[Currency alloc] init];
+    });
+    
+    return currency;
+}
 
 - (void)setWithDictionary:(NSDictionary *)dict
 {
-    _code = dict[@"code"];
-    _symbol = dict[@"symbol"];
-    _name = dict[@"name"];
+    _code = STRING_IF_NOT_EMPTY(dict[@"code"]);
+    _symbol = STRING_IF_NOT_EMPTY(dict[@"symbol"]);
+    _name = STRING_IF_NOT_EMPTY(dict[@"name"]);
     _rate = [dict[@"rate"] doubleValue];
     _enabled = [dict[@"enabled"] boolValue];
 }
@@ -24,9 +39,9 @@
 - (NSDictionary *)dictionaryRepresentation
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    dict[@"code"] = _code;
-    dict[@"symbol"] = _symbol ?: @"";
-    dict[@"name"] = _name ?: @"";
+    SET_STRING_IF_NOT_EMPTY(dict[@"code"], _code);
+    SET_STRING_IF_NOT_EMPTY(dict[@"symbol"], _symbol);
+    SET_STRING_IF_NOT_EMPTY(dict[@"name"], _name);
     dict[@"rate"] = @(_rate);
     dict[@"enabled"] = @(_enabled);
     return dict;

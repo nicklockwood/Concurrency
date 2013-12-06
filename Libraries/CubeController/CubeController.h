@@ -52,14 +52,19 @@
 
 @interface CubeController : UIViewController
 
-@property (nonatomic, weak_delegate) id<CubeControllerDataSource> dataSource;
-@property (nonatomic, weak_delegate) id<CubeControllerDelegate> delegate;
+@property (nonatomic, weak_delegate) IBOutlet id<CubeControllerDataSource> dataSource;
+@property (nonatomic, weak_delegate) IBOutlet id<CubeControllerDelegate> delegate;
+@property (nonatomic, readonly) UIScrollView *scrollView;
 @property (nonatomic, readonly) NSInteger numberOfViewControllers;
 @property (nonatomic, assign) NSInteger currentViewControllerIndex;
 @property (nonatomic, getter = isWrapEnabled) BOOL wrapEnabled;
 
 - (void)reloadData;
+- (void)reloadViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated;
+
 - (void)scrollToViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated;
+- (void)scrollForwardAnimated:(BOOL)animated;
+- (void)scrollBackAnimated:(BOOL)animated;
 
 @end
 

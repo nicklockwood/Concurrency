@@ -36,8 +36,8 @@
 
 - (void)configureWithCurrency:(Currency *)currency value:(double)value
 {
-    self.symbolLabel.text = [currency.symbol length]? currency.symbol: currency.code;
-    self.symbolLabel.font = [self.symbolLabel.font fontWithSize:[currency.symbol length]? 30: 17];
+    self.symbolLabel.text = currency.symbol ?: currency.code ?: @"-";
+    self.symbolLabel.font = [self.symbolLabel.font fontWithSize:currency.symbol? 30: 17];
     self.valueLabel.text = [NSString stringWithFormat:@"%0.2f", value];
     self.valueLabel.font = [self.valueLabel.font fontWithSize:30];
 }

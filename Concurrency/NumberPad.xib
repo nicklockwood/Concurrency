@@ -224,6 +224,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="ifU-Ar-St3" appends="YES" id="Y11-ZX-ZR1"/>
+                <outletCollection property="gestureRecognizers" destination="3s8-eQ-eew" appends="YES" id="QZD-rJ-y29"/>
+                <outletCollection property="gestureRecognizers" destination="RuF-aC-Vdw" appends="YES" id="IBH-ah-9dO"/>
             </connections>
         </view>
         <tapGestureRecognizer id="ifU-Ar-St3"/>
@@ -232,5 +234,15 @@
                 <action selector="heldDelete" destination="kgT-7J-1BZ" id="4oq-4K-8il"/>
             </connections>
         </pongPressGestureRecognizer>
+        <swipeGestureRecognizer direction="right" id="3s8-eQ-eew">
+            <connections>
+                <outlet property="delegate" destination="kgT-7J-1BZ" id="YfI-Rl-ZLa"/>
+            </connections>
+        </swipeGestureRecognizer>
+        <swipeGestureRecognizer direction="left" id="RuF-aC-Vdw">
+            <connections>
+                <outlet property="delegate" destination="kgT-7J-1BZ" id="bAZ-Fg-wJZ"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
 </document>

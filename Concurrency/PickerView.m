@@ -75,12 +75,14 @@
     {
         double value = [self.currency valueFromEuros:self.euroValue];
         self.inputField.text = [NSString stringWithFormat:@"%0.2f", value];
+        self.inputField.backgroundColor = [UIColor whiteColor];
     }
     [self.overlayView crossfadeWithDuration:0.4 completion:^{
         
         if (!selected)
         {
             self.inputField.text = @"";
+            self.inputField.backgroundColor = nil;
         }
     }];
     self.overlayView.alpha = selected? 1.0f: 0.0f;
@@ -101,6 +103,13 @@
         while ([currencies count] < 6)
         {
             [currencies addObjectsFromArray:[Currencies sharedInstance].enabledCurrencies];
+        }
+    }
+    else
+    {
+        while ([currencies count] < 6)
+        {
+            [currencies addObject:[Currency nullCurrency]];
         }
     }
     self.currencies = currencies;

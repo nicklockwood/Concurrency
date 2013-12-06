@@ -16,6 +16,8 @@
 @property (nonatomic, assign, readonly) double rate;
 @property (nonatomic, assign, getter = isEnabled) BOOL enabled;
 
++ (instancetype)nullCurrency;
+
 - (NSDictionary *)dictionaryRepresentation;
 
 - (double)valueInEuros:(double)value;

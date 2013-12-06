@@ -12,6 +12,7 @@
 #import "SettingsViewController.h"
 #import "iRate.h"
 #import "Currencies.h"
+#import "ViewUtils.h"
 
 
 @interface AppDelegate () <CubeControllerDataSource, CubeControllerDelegate, UIGestureRecognizerDelegate>
@@ -44,7 +45,7 @@
     //wiggle the cube controller
     double speed = 1.5;
     double amplitude = 1.0;
-    UIScrollView *scrollView = [controller.view.subviews firstObject];
+    UIScrollView *scrollView = controller.scrollView;
     if (!_wiggleCancelled)
     {
         [UIView animateWithDuration:0.5 / speed delay:0.5 options:UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -90,7 +91,7 @@
                          (__bridge id)[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.0f].CGColor];
         [self.window.layer addSublayer:layer];
     });
-    
+
     return YES;
 }
 
@@ -118,9 +119,10 @@
 
 - (void)cubeControllerCurrentViewControllerIndexDidChange:(CubeController *)cubeController
 {
-    id field = [cubeController.view firstResponder];
+    UIResponder *field = [cubeController.view firstResponder];
     if ([field respondsToSelector:@selector(setSelectedTextRange:)])
     {
+        //prevents weird misalignment of selection handles
         [field setValue:nil forKey:@"selectedTextRange"];
     }
     [field resignFirstResponder];
@@ -132,10 +134,15 @@
         [[Currencies sharedInstance].enabledCurrencies count] == 0)
     {
         [cubeController scrollToViewControllerAtIndex:1 animated:YES];
-        
-        double delayInSeconds = 0.2;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    }
+}
+
+- (void)cubeControllerDidEndScrollingAnimation:(CubeController *)cubeController
+{
+    if (cubeController.currentViewControllerIndex == 1 &&
+        [[Currencies sharedInstance].enabledCurrencies count] == 0)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
             
             [[[UIAlertView alloc] initWithTitle:@"No Currencies Selected" message:@"Please select at least two currencies in order to use the converter." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         });

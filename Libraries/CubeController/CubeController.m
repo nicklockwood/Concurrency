@@ -75,22 +75,32 @@
 {
     [super viewDidLoad];
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _scrollView.showsHorizontalScrollIndicator = NO;
-    _scrollView.pagingEnabled = YES;
-    _scrollView.directionalLockEnabled = YES;
-    _scrollView.autoresizesSubviews = NO;
-    _scrollView.delegate = self;
-    [self.view addSubview:_scrollView];
+    self.scrollView.frame = self.view.bounds;
+    [self.view addSubview:self.scrollView];
     
     [self reloadData];
+}
+
+- (UIScrollView *)scrollView
+{
+    if (!_scrollView)
+    {
+        CGRect frame = [self isViewLoaded]? self.view.bounds: [UIScreen mainScreen].bounds;
+        _scrollView = [[UIScrollView alloc] initWithFrame:frame];
+        _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.pagingEnabled = YES;
+        _scrollView.directionalLockEnabled = YES;
+        _scrollView.autoresizesSubviews = NO;
+        _scrollView.delegate = self;
+    }
+    return _scrollView;
 }
 
 - (void)setWrapEnabled:(BOOL)wrapEnabled
 {
     _wrapEnabled = wrapEnabled;
-    [self updateLayout];
+    [self.view layoutIfNeeded];
 }
 
 - (void)setCurrentViewControllerIndex:(NSInteger)currentViewControllerIndex
@@ -100,7 +110,35 @@
 
 - (void)scrollToViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated
 {
-    [_scrollView setContentOffset:CGPointMake(self.view.bounds.size.width * (CGFloat)index, 0) animated:animated];
+    CGFloat offset = (CGFloat)index;
+    if (_wrapEnabled)
+    {
+        //using > here instead of >= may look like a fencepost bug, but it isn't
+        if (offset > _numberOfViewControllers)
+        {
+            offset = (NSInteger)offset % _numberOfViewControllers;
+        }
+        offset = MAX(-1, offset) + 1;
+    }
+    else if (animated && _scrollView.bounces)
+    {
+        offset = MAX(-0.1f, MIN(offset, _numberOfViewControllers - 0.9f));
+    }
+    else
+    {
+        offset = MAX(0, MIN(offset, _numberOfViewControllers - 1));
+    }
+    [_scrollView setContentOffset:CGPointMake(self.view.bounds.size.width * offset, 0) animated:animated];
+}
+
+- (void)scrollForwardAnimated:(BOOL)animated
+{
+    [self scrollToViewControllerAtIndex:_currentViewControllerIndex + 1 animated:animated];
+}
+
+- (void)scrollBackAnimated:(BOOL)animated
+{
+    [self scrollToViewControllerAtIndex:_currentViewControllerIndex - 1 animated:animated];
 }
 
 - (void)reloadData
@@ -114,43 +152,153 @@
     }
     _controllers = [NSMutableDictionary dictionary];
     _numberOfViewControllers = [self.dataSource numberOfViewControllersInCubeController:self];
-    [self updateLayout];
+    [self.view layoutIfNeeded];
 }
 
-- (void)updateLayout
+- (void)reloadViewControllerAtIndex:(NSInteger)index animated:(BOOL)animated
 {
-    if (_scrollView)
+    UIViewController *controller = _controllers[@(index)];
+    if (controller)
     {
-        NSInteger pages = (_wrapEnabled && _numberOfViewControllers > 1)? 3: MIN(3, _numberOfViewControllers);
-        _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width * pages, self.view.bounds.size.height);
-        [self updateContentOffset];
-        [self scrollViewDidScroll:_scrollView];
+        CATransform3D transform = controller.view.layer.transform;
+        CGPoint center = controller.view.center;
+        
+        if (animated)
+        {
+            CATransition *animation = [CATransition animation];
+            animation.type = kCATransitionFade;
+            [_scrollView.layer addAnimation:animation forKey:nil];
+        }
+        
+        [controller.view removeFromSuperview];
+        [controller removeFromParentViewController];
+        controller = [_dataSource cubeController:self viewControllerAtIndex:index];
+        [_controllers setObject:controller forKey:@(index)];
+        controller.view.layer.doubleSided = NO;
+        [self addChildViewController:controller];
+        [_scrollView addSubview:controller.view];
+        
+        controller.view.layer.transform = transform;
+        controller.view.center = center;
+        controller.view.userInteractionEnabled = (index == _currentViewControllerIndex);
     }
 }
 
 - (void)updateContentOffset
 {
-    _suppressScrollEvent = YES;
-    CGFloat offset = _scrollView.contentOffset.x / self.view.bounds.size.width;
+    CGFloat offset = _scrollOffset;
     if (_wrapEnabled && _numberOfViewControllers > 1)
     {
-        while (offset < 1.0f) offset += 1.0f;
-        while (offset >= 2.0f) offset -= 1.0f;
-    }
-    else
-    {
-        while (offset < 1.0f && floor(_scrollOffset) > 0) offset += 1.0f;
-        while (offset >= 2.0f && floor(_scrollOffset) < _numberOfViewControllers - 1) offset -= 1.0f;
+        offset += 1.0f;
+        while (offset < 1.0f) offset += 1;
+        while (offset >= _numberOfViewControllers + 1) offset -= _numberOfViewControllers;
     }
     _previousOffset = offset;
+    
+    _suppressScrollEvent = YES;
     _scrollView.contentOffset = CGPointMake(self.view.bounds.size.width * offset, 0.0f);
     _suppressScrollEvent = NO;
+}
+
+- (void)updateLayout
+{
+    for (NSNumber *index in _controllers)
+    {
+        UIViewController *controller = _controllers[index];
+        if (controller && !controller.parentViewController)
+        {
+            controller.view.autoresizingMask = UIViewAutoresizingNone;
+            controller.view.layer.doubleSided = NO;
+            [self addChildViewController:controller];
+            [_scrollView addSubview:controller.view];
+        }
+        
+        NSInteger i = [index integerValue];
+        CGFloat angle = (_scrollOffset - i) * M_PI_2;
+        while (angle < 0) angle += M_PI * 2;
+        while (angle > M_PI * 2) angle -= M_PI * 2;
+        CATransform3D transform = CATransform3DIdentity;
+        if (angle != 0.0f)
+        {
+            transform.m34 = -1.0/500;
+            transform = CATransform3DTranslate(transform, 0, 0, -self.view.bounds.size.width / 2.0f);
+            transform = CATransform3DRotate(transform, -angle, 0, 1, 0);
+            transform = CATransform3DTranslate(transform, 0, 0, self.view.bounds.size.width / 2.0f);
+        }
+        
+        controller.view.bounds = self.view.bounds;
+        controller.view.center = CGPointMake(self.view.bounds.size.width / 2.0f + _scrollView.contentOffset.x, self.view.bounds.size.height / 2.0f);
+        controller.view.layer.transform = transform;
+    }
+}
+
+- (void)loadUnloadControllers
+{
+    //calculate visible indices
+    NSMutableSet *visibleIndices = [NSMutableSet setWithObject:@(_currentViewControllerIndex)];
+    if (_wrapEnabled || _currentViewControllerIndex < _numberOfViewControllers - 1)
+    {
+        [visibleIndices addObject:@(_currentViewControllerIndex + 1)];
+    }
+    if (_currentViewControllerIndex > 0)
+    {
+        [visibleIndices addObject:@(_currentViewControllerIndex - 1)];
+    }
+    else if (_wrapEnabled)
+    {
+        [visibleIndices addObject:@(-1)];
+    }
+    
+    //remove hidden controllers
+    for (NSNumber *index in [_controllers allKeys])
+    {
+        if (![visibleIndices containsObject:index])
+        {
+            UIViewController *controller = _controllers[index];
+            [controller.view removeFromSuperview];
+            [controller removeFromParentViewController];
+            [_controllers removeObjectForKey:index];
+        }
+    }
+    
+    //load controllers
+    for (NSNumber *index in visibleIndices)
+    {
+        NSInteger i = [index integerValue];
+        UIViewController *controller = _controllers[index];
+        if (!controller && _numberOfViewControllers)
+        {
+            controller = [self.dataSource cubeController:self viewControllerAtIndex:(i + _numberOfViewControllers) % _numberOfViewControllers];
+            _controllers[index] = controller;
+        }
+    }
+}
+
+- (void)updateInteraction
+{
+    for (NSNumber *index in _controllers)
+    {
+        UIViewController *controller = _controllers[index];
+        NSInteger i = [index integerValue];
+        controller.view.userInteractionEnabled = (i == _currentViewControllerIndex);
+    }
 }
 
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    [self updateLayout];
+    if (_scrollView)
+    {
+        NSInteger pages = _numberOfViewControllers;
+        if (_wrapEnabled && _numberOfViewControllers > 1) pages += 2;
+        _suppressScrollEvent = YES;
+        _scrollView.contentSize = CGSizeMake(self.view.bounds.size.width * pages, self.view.bounds.size.height);
+        _suppressScrollEvent = NO;
+        [self updateContentOffset];
+        [self loadUnloadControllers];
+        [self updateLayout];
+        [self updateInteraction];
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -172,80 +320,12 @@
         
         //update index
         NSInteger previousViewControllerIndex = _currentViewControllerIndex;
-        _currentViewControllerIndex = MAX(0, MIN(_numberOfViewControllers - 1, (NSInteger)round(_scrollOffset)));
+        _currentViewControllerIndex = MAX(0, MIN(_numberOfViewControllers - 1, (NSInteger)(round(_scrollOffset))));
         
-        //update content offset
+        //update content
         [self updateContentOffset];
-        
-        //calculate visible indices
-        offset = _scrollOffset - _currentViewControllerIndex;
-        NSMutableSet *visibleIndices = [NSMutableSet setWithObject:@(_currentViewControllerIndex)];
-        if (_wrapEnabled || _currentViewControllerIndex < _numberOfViewControllers - 1)
-        {
-            [visibleIndices addObject:@(_currentViewControllerIndex + 1)];
-        }
-        else if (_currentViewControllerIndex > 0)
-        {
-            [visibleIndices addObject:@(_currentViewControllerIndex - 1)];
-        }
-        else if (_wrapEnabled)
-        {
-            [visibleIndices addObject:@(_numberOfViewControllers - 1)];
-        }
-        
-        //remove hidden controllers
-        for (NSNumber *index in [_controllers allKeys])
-        {
-            if (![visibleIndices containsObject:index])
-            {
-                UIViewController *controller = _controllers[index];
-                [controller.view removeFromSuperview];
-                [controller removeFromParentViewController];
-                [_controllers removeObjectForKey:index];
-            }
-        }
-        
-        //load controllers
-        for (NSNumber *index in visibleIndices)
-        {
-            NSUInteger i = [index integerValue];
-            UIViewController *controller = _controllers[index];
-            if (!controller && _numberOfViewControllers)
-            {
-                controller = [self.dataSource cubeController:self viewControllerAtIndex:i % _numberOfViewControllers];
-                _controllers[index] = controller;
-            }
-        }
-        
-        //update visible controllers
-        for (NSNumber *index in visibleIndices)
-        {
-            UIViewController *controller = _controllers[index];
-            if (controller && !controller.parentViewController)
-            {
-                controller.view.frame = self.view.bounds;
-                controller.view.autoresizingMask = UIViewAutoresizingNone;
-                controller.view.layer.doubleSided = NO;
-                [self addChildViewController:controller];
-                [_scrollView addSubview:controller.view];
-            }
-            
-            NSInteger i = [index integerValue];
-            CGFloat angle = (_scrollOffset - i) * M_PI_2;
-            while (angle < 0) angle += M_PI * 2;
-            while (angle > M_PI * 2) angle -= M_PI * 2;
-            CATransform3D transform = CATransform3DIdentity;
-            if (angle != 0.0f)
-            {
-                transform.m34 = -1.0/500;
-                transform = CATransform3DTranslate(transform, 0, 0, -self.view.bounds.size.width / 2.0f);
-                transform = CATransform3DRotate(transform, -angle, 0, 1, 0);
-                transform = CATransform3DTranslate(transform, 0, 0, self.view.bounds.size.width / 2.0f);
-            }
-            
-            controller.view.layer.transform = transform;
-            controller.view.center = CGPointMake(self.view.bounds.size.width / 2.0f + scrollView.contentOffset.x, self.view.bounds.size.height / 2.0f);
-        }
+        [self loadUnloadControllers];
+        [self updateLayout];
         
         //update delegate
         [_delegate cubeControllerDidScroll:self];
@@ -255,12 +335,7 @@
         }
         
         //enable/disable interaction
-        for (NSNumber *index in visibleIndices)
-        {
-            UIViewController *controller = _controllers[index];
-            NSInteger i = [index integerValue];
-            controller.view.userInteractionEnabled = (i == _currentViewControllerIndex);
-        }
+        [self updateInteraction];
     }
 }
 
@@ -286,6 +361,11 @@
 
 - (void)scrollViewDidEndScrollingAnimation:(__unused UIScrollView *)scrollView
 {
+    CGFloat nearestIntegralOffset = roundf(_scrollOffset);
+    if (ABS(_scrollOffset - nearestIntegralOffset) > 0.0f)
+    {
+        [self scrollToViewControllerAtIndex:_currentViewControllerIndex animated:YES];
+    }
     if (!_suppressScrollEvent) [_delegate cubeControllerDidEndScrollingAnimation:self];
 }
 
