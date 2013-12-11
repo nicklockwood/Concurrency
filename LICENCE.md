@@ -1,6 +1,6 @@
 Concurrency
 
-Version 1.0, November 13th, 2013
+Version 1.0.1, December 11th, 2013
 
 Copyright (C) 2013 Charcoal Design
 
