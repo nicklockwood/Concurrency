@@ -1,3 +1,7 @@
+Version 1.1
+
+- Now supports an additional 56 currencies!
+
 Version 1.0.1
 
 - You can now copy converted currency values

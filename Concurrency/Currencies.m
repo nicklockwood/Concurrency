@@ -11,12 +11,12 @@
 
 
 NSString *const CurrenciesUpdatedNotification = @"CurrenciesUpdatedNotification";
-static NSString *const UpdateURL = @"https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
+static NSString *const UpdateURL = @"http://themoneyconverter.com/rss-feed/EUR/rss.xml";
 
 
 @implementation Currencies
 {
-    NSDictionary *_currenciesByCode;
+    NSMutableDictionary *_currenciesByCode;
 }
 
 + (void)load
@@ -48,7 +48,7 @@ static NSString *const UpdateURL = @"https://www.ecb.europa.eu/stats/eurofxref/e
     }];
     
     //set currencies by code
-    _currenciesByCode = [NSDictionary dictionaryWithObjects:_allCurrencies forKeys:[_allCurrencies valueForKeyPath:@"code"]];
+    _currenciesByCode = [NSMutableDictionary dictionaryWithObjects:_allCurrencies forKeys:[_allCurrencies valueForKeyPath:@"code"]];
     
     //download update
     [self update];
@@ -74,12 +74,38 @@ static NSString *const UpdateURL = @"https://www.ecb.europa.eu/stats/eurofxref/e
         NSDictionary *xmlDict = [NSDictionary dictionaryWithXMLData:data];
         if (xmlDict)
         {
-            for (NSDictionary *entry in [xmlDict valueForKeyPath:@"Cube.Cube.Cube"])
+            for (NSDictionary *entry in [xmlDict valueForKeyPath:@"channel.item"])
             {
-                Currency *currency = [self currencyForCode:entry[@"_currency"]];
-                [currency setValue:entry[@"_rate"] forKey:@"rate"];
+                NSString *code = [[entry[@"title"] componentsSeparatedByString:@"/"] firstObject];
+                if (!code) continue;
+                
+                NSString *description = [entry[@"description"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                if (![description hasPrefix:@"1 Euro = "]) continue;
+                
+                description = [description substringFromIndex:9];
+                NSArray *parts = [description componentsSeparatedByString:@" "];
+                NSString *rate = [[parts firstObject] stringByReplacingOccurrencesOfString:@"," withString:@""];
+                if ([rate doubleValue] < 0.000001) continue;
+                
+                Currency *currency = [self currencyForCode:code];
+                if (!currency)
+                {
+                    currency = [Currency instance];
+                    [currency setValue:code forKey:@"code"];
+                    _currenciesByCode[code] = currency;
+                }
+                
+                NSString *name = [[parts subarrayWithRange:NSMakeRange(1, [parts count] - 1)] componentsJoinedByString:@" "];
+                if (name) [currency setValue:name forKey:@"name"];
+                [currency setValue:rate forKey:@"rate"];
             }
+            
             _lastUpdated = [NSDate date];
+            _allCurrencies = [[_currenciesByCode allValues] sortedArrayUsingComparator:^NSComparisonResult(Currency *a, Currency *b) {
+                
+                return [a.name caseInsensitiveCompare:b.name];
+            }];
+            
             [self save];
         }
         
