@@ -10,7 +10,6 @@
 #import "CubeController.h"
 #import "MainViewController.h"
 #import "SettingsViewController.h"
-#import "iRate.h"
 #import "Currencies.h"
 #import "ViewUtils.h"
 
@@ -23,11 +22,6 @@
 
 
 @implementation AppDelegate
-
-+ (void)initialize
-{
-    [iRate sharedInstance].promptAgainForEachNewVersion = NO;
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
