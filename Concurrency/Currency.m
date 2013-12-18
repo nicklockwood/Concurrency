@@ -10,10 +10,6 @@
 #import "Currencies.h"
 
 
-#define SET_STRING_IF_NOT_EMPTY(target, string) if([string length]) (target) = (string)
-#define STRING_IF_NOT_EMPTY(string) ([string length])? (string): nil
-
-
 @implementation Currency
 
 + (instancetype)nullCurrency
@@ -27,24 +23,9 @@
     return currency;
 }
 
-- (void)setWithDictionary:(NSDictionary *)dict
+- (void)setSymbol:(NSString *)symbol
 {
-    _code = STRING_IF_NOT_EMPTY(dict[@"code"]);
-    _symbol = STRING_IF_NOT_EMPTY(dict[@"symbol"]);
-    _name = STRING_IF_NOT_EMPTY(dict[@"name"]);
-    _rate = [dict[@"rate"] doubleValue];
-    _enabled = [dict[@"enabled"] boolValue];
-}
-
-- (NSDictionary *)dictionaryRepresentation
-{
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    SET_STRING_IF_NOT_EMPTY(dict[@"code"], _code);
-    SET_STRING_IF_NOT_EMPTY(dict[@"symbol"], _symbol);
-    SET_STRING_IF_NOT_EMPTY(dict[@"name"], _name);
-    dict[@"rate"] = @(_rate);
-    dict[@"enabled"] = @(_enabled);
-    return dict;
+    _symbol = [symbol length]? symbol: nil;
 }
 
 - (double)valueInEuros:(double)value

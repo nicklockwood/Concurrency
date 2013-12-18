@@ -18,8 +18,6 @@
 
 + (instancetype)nullCurrency;
 
-- (NSDictionary *)dictionaryRepresentation;
-
 - (double)valueInEuros:(double)value;
 - (double)valueFromEuros:(double)euroValue;
 - (double)value:(double)value convertedToCurrency:(Currency *)currency;
