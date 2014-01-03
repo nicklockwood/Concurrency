@@ -40,6 +40,10 @@
 		01412CF9177AD4D80070C4B2 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01412CF8177AD4D80070C4B2 /* MainViewController.m */; };
 		0149D7BF177C248100884EB3 /* Currencies.m in Sources */ = {isa = PBXBuildFile; fileRef = 0149D7BE177C248100884EB3 /* Currencies.m */; };
 		0149D7C4177C24C900884EB3 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0149D7C3177C24C900884EB3 /* BaseModel.m */; };
+		016EA7311875E1DD0005FADC /* CubeController+Wiggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 016EA7301875E1DD0005FADC /* CubeController+Wiggle.m */; };
+		016EA73518760AB10005FADC /* ColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 016EA73418760AB10005FADC /* ColorUtils.m */; };
+		016EA73818771FF50005FADC /* UIView+TintColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 016EA73718771FF50005FADC /* UIView+TintColor.m */; };
+		016EA73D187723B40005FADC /* SearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 016EA73C187723B40005FADC /* SearchBar.m */; };
 		01815189178099D500BB4970 /* CubeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01815188178099D500BB4970 /* CubeController.m */; };
 		0181518C17809C6F00BB4970 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0181518B17809C6F00BB4970 /* MainViewController.xib */; };
 		0181519117809E1800BB4970 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0181518F17809E1800BB4970 /* SettingsViewController.m */; };
@@ -101,6 +105,14 @@
 		0149D7BE177C248100884EB3 /* Currencies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Currencies.m; sourceTree = "<group>"; };
 		0149D7C2177C24C900884EB3 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		0149D7C3177C24C900884EB3 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		016EA72F1875E1DD0005FADC /* CubeController+Wiggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CubeController+Wiggle.h"; sourceTree = "<group>"; };
+		016EA7301875E1DD0005FADC /* CubeController+Wiggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CubeController+Wiggle.m"; sourceTree = "<group>"; };
+		016EA73318760AB10005FADC /* ColorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorUtils.h; sourceTree = "<group>"; };
+		016EA73418760AB10005FADC /* ColorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorUtils.m; sourceTree = "<group>"; };
+		016EA73618771FF50005FADC /* UIView+TintColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TintColor.h"; sourceTree = "<group>"; };
+		016EA73718771FF50005FADC /* UIView+TintColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TintColor.m"; sourceTree = "<group>"; };
+		016EA73B187723B40005FADC /* SearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
+		016EA73C187723B40005FADC /* SearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBar.m; sourceTree = "<group>"; };
 		01815187178099D500BB4970 /* CubeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeController.h; sourceTree = "<group>"; };
 		01815188178099D500BB4970 /* CubeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubeController.m; sourceTree = "<group>"; };
 		0181518B17809C6F00BB4970 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
@@ -212,6 +224,7 @@
 		01412CE8177AD4D80070C4B2 /* Concurrency */ = {
 			isa = PBXGroup;
 			children = (
+				016EA72E1875E1AF0005FADC /* Categories */,
 				0149D7BC177C245100884EB3 /* Model */,
 				01412D25177B714D0070C4B2 /* Views */,
 				01412D24177B71470070C4B2 /* Controllers */,
@@ -239,6 +252,7 @@
 				01856E20177CAEA5001FBB6D /* ViewUtils */,
 				0134E14D177CACF20007BF1A /* iCarousel */,
 				0149D7C1177C24C900884EB3 /* BaseModel */,
+				016EA73218760AB10005FADC /* ColorUtils */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -264,6 +278,8 @@
 			children = (
 				0107C2551829341C00D0EFDB /* Button.h */,
 				0107C2561829341C00D0EFDB /* Button.m */,
+				016EA73B187723B40005FADC /* SearchBar.h */,
+				016EA73C187723B40005FADC /* SearchBar.m */,
 				01412D22177B711C0070C4B2 /* NumberPad.h */,
 				01412D23177B711C0070C4B2 /* NumberPad.m */,
 				01412D21177B6F4A0070C4B2 /* NumberPad.xib */,
@@ -299,6 +315,26 @@
 				0149D7C3177C24C900884EB3 /* BaseModel.m */,
 			);
 			path = BaseModel;
+			sourceTree = "<group>";
+		};
+		016EA72E1875E1AF0005FADC /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				016EA72F1875E1DD0005FADC /* CubeController+Wiggle.h */,
+				016EA7301875E1DD0005FADC /* CubeController+Wiggle.m */,
+				016EA73618771FF50005FADC /* UIView+TintColor.h */,
+				016EA73718771FF50005FADC /* UIView+TintColor.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		016EA73218760AB10005FADC /* ColorUtils */ = {
+			isa = PBXGroup;
+			children = (
+				016EA73318760AB10005FADC /* ColorUtils.h */,
+				016EA73418760AB10005FADC /* ColorUtils.m */,
+			);
+			path = ColorUtils;
 			sourceTree = "<group>";
 		};
 		018151861780997500BB4970 /* CubeController */ = {
@@ -440,10 +476,14 @@
 			files = (
 				01856E16177C7F56001FBB6D /* PickerCellView.m in Sources */,
 				0181519D1780CA2400BB4970 /* XMLDictionary.m in Sources */,
+				016EA7311875E1DD0005FADC /* CubeController+Wiggle.m in Sources */,
+				016EA73818771FF50005FADC /* UIView+TintColor.m in Sources */,
 				018151A117816AC100BB4970 /* CurrencyCell.m in Sources */,
+				016EA73D187723B40005FADC /* SearchBar.m in Sources */,
 				0149D7C4177C24C900884EB3 /* BaseModel.m in Sources */,
 				01856E1B177CAD3D001FBB6D /* PickerView.m in Sources */,
 				01271EEB177B73EB007A186E /* NumberPad.m in Sources */,
+				016EA73518760AB10005FADC /* ColorUtils.m in Sources */,
 				0107C2571829341C00D0EFDB /* Button.m in Sources */,
 				01412CF9177AD4D80070C4B2 /* MainViewController.m in Sources */,
 				01412CF3177AD4D80070C4B2 /* AppDelegate.m in Sources */,

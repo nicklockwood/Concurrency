@@ -18,7 +18,17 @@
 
 + (instancetype)instance
 {
-    return [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil][0];
+    return [self instanceWithNibName:nil bundle:nil owner:nil];
+}
+
+- (UIColor *)tintColor
+{
+    return [UIApplication sharedApplication].delegate.window.tintColor;
+}
+
+- (void)awakeFromNib
+{
+    [(UIButton *)[self viewWithTag:12] setTitleColor:self.tintColor forState:UIControlStateNormal];
 }
 
 - (IBAction)pressedButton:(UIButton *)sender

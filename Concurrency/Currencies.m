@@ -60,6 +60,21 @@ static NSString *const UpdateURL = @"http://themoneyconverter.com/rss-feed/EUR/r
     return _currenciesByCode[code];
 }
 
+- (NSArray *)currenciesMatchingSearchString:(NSString *)searchString
+{
+    if ([searchString length])
+    {
+        searchString = [searchString lowercaseString];
+        return [self.allCurrencies filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Currency *currency, __unused id bindings) {
+            return [[currency.name lowercaseString] rangeOfString:searchString].length || [[currency.code lowercaseString] hasPrefix:searchString];
+        }]];
+    }
+    else
+    {
+        return self.allCurrencies;
+    }
+}
+
 - (NSArray *)enabledCurrencies
 {
     return [_allCurrencies filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"enabled=YES"]];

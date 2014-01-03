@@ -9,11 +9,14 @@
 #import "SettingsViewController.h"
 #import "Currencies.h"
 #import "CurrencyCell.h"
+#import "ViewUtils.h"
 
 
-@interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (nonatomic, strong) IBOutlet UILabel *footer;
+@property (nonatomic, copy) NSArray *currencies;
+@property (nonatomic, copy) NSString *searchString;
 
 @end
 
@@ -30,31 +33,59 @@
     {
         self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
         self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(20, 0, 0, 0);
+        
+        //yuck! this horrible hack is needed to avoid a jitter during wiggle animation
+        double delayInSeconds = 1;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            self.tableView.contentOffset = CGPointMake(0, -20);
+        });
     }
     
-    [self.tableView registerNib:[CurrencyCell nib] forCellReuseIdentifier:[CurrencyCell reuseIdentifier]];
     self.tableView.tableFooterView = self.footer;
-    [self updateFooter];
+    [self update];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[Currencies sharedInstance].allCurrencies count];
+    return [self.currencies count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CurrencyCell *cell = [self.tableView dequeueReusableCellWithIdentifier:[CurrencyCell reuseIdentifier] forIndexPath:indexPath];
-    [cell configureWithCurrency:[Currencies sharedInstance].allCurrencies[indexPath.row]];
+    CurrencyCell *cell = [CurrencyCell dequeueInstanceWithTableView:tableView];
+    [cell configureWithCurrency:self.currencies[indexPath.row]];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Currency *currency = [Currencies sharedInstance].allCurrencies[indexPath.row];
+    Currency *currency = self.currencies[indexPath.row];
     currency.enabled = !currency.enabled;
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     [currency save];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    self.searchString = searchText;
+    [self update];
+}
+
+- (void)refresh
+{
+    [self.refreshControl beginRefreshing];
+    [[Currencies sharedInstance] updateWithBlock:^{
+        [self update];
+    }];
+}
+     
+- (void)update
+{
+    self.currencies = [[Currencies sharedInstance] currenciesMatchingSearchString:self.searchString];
+    [self.refreshControl endRefreshing];
+    [self.tableView reloadData];
+    [self updateFooter];
 }
 
 - (void)updateFooter
@@ -71,14 +102,13 @@
     self.footer.text = [NSString stringWithFormat:@"Last Updated: %@", date];
 }
 
-- (void)refresh
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    [self.refreshControl beginRefreshing];
-    [[Currencies sharedInstance] updateWithBlock:^{
-        [self.refreshControl endRefreshing];
-        [self.tableView reloadData];
-        [self updateFooter];
-    }];
+    if (![touch.view isSubviewOfView:self.tableView.tableHeaderView])
+    {
+        [self.tableView.tableHeaderView resignFirstResponder];
+    }
+    return NO;
 }
 
 @end

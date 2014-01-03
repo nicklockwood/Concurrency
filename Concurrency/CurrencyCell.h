@@ -11,8 +11,7 @@
 
 @interface CurrencyCell : UITableViewCell
 
-+ (UINib *)nib;
-+ (NSString *)reuseIdentifier;
++ (instancetype)dequeueInstanceWithTableView:(UITableView *)tableView;
 - (void)configureWithCurrency:(Currency *)currency;
 
 @end

@@ -10,13 +10,12 @@
 #import "CubeController.h"
 #import "MainViewController.h"
 #import "SettingsViewController.h"
+#import "CubeController+Wiggle.h"
 #import "Currencies.h"
 #import "ViewUtils.h"
 
 
 @interface AppDelegate () <CubeControllerDataSource, CubeControllerDelegate, UIGestureRecognizerDelegate>
-
-@property (nonatomic, assign) BOOL wiggleCancelled;
 
 @end
 
@@ -25,6 +24,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //set global tint
+    self.window.tintColor = [UIColor colorWithRed:100.0f/255 green:200.0f/255 blue:100.0f/255 alpha:1];
+    
     //set up cube controller
     CubeController *controller = (CubeController *)self.window.rootViewController;
     controller.dataSource = self;
@@ -37,41 +39,7 @@
     [controller.view addGestureRecognizer:gesture];
     
     //wiggle the cube controller
-    double speed = 1.5;
-    double amplitude = 1.0;
-    UIScrollView *scrollView = controller.scrollView;
-    if (!_wiggleCancelled)
-    {
-        [UIView animateWithDuration:0.5 / speed delay:0.5 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            
-            scrollView.contentOffset = CGPointMake(80 * amplitude, 0);
-            
-        } completion:^(BOOL finished) {
-            
-            if (!finished || _wiggleCancelled) return;
-            [UIView animateWithDuration:0.7 / speed delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-                
-                scrollView.contentOffset = CGPointMake(-50 * amplitude, 0);
-                
-            } completion:^(BOOL finished) {
-                
-                if (!finished || _wiggleCancelled) return;
-                [UIView animateWithDuration:0.5 / speed delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-                    
-                    scrollView.contentOffset = CGPointMake(20 * amplitude, 0);
-                    
-                } completion:^(BOOL finished) {
-                    
-                    if (!finished || _wiggleCancelled) return;
-                    [UIView animateWithDuration:0.7 / speed delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-                        
-                        scrollView.contentOffset = CGPointZero;
-                        
-                    } completion:NULL];
-                }];
-            }];
-        }];
-    }
+    [controller wiggle];
     
     //create subtle gradient behind status bar
     dispatch_async(dispatch_get_main_queue(), ^(void){
@@ -146,7 +114,7 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     [gestureRecognizer.view removeGestureRecognizer:gestureRecognizer];
-    _wiggleCancelled = YES;
+    [(CubeController *)self.window.rootViewController cancelWiggle];
     return NO;
 }
 

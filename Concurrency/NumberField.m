@@ -14,6 +14,10 @@
 - (void)setUp
 {
     self.inputView = [[UIView alloc] init];
+    if ([self respondsToSelector:@selector(setTintColor:)])
+    {
+        self.tintColor = [UIColor colorWithRed:100.0/255 green:200.0/255 blue:100.0/255 alpha:1];
+    }
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder

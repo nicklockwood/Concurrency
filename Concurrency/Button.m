@@ -10,13 +10,6 @@
 
 @implementation Button
 
-static UIColor *selectedColor = nil;
-
-+ (void)initialize
-{
-    selectedColor = [UIColor colorWithRed:0.2 green:0.6 blue:1 alpha:1];
-}
-
 - (void)setUp
 {
     self.layer.cornerRadius = 8;
@@ -24,11 +17,17 @@ static UIColor *selectedColor = nil;
     self.adjustsImageWhenHighlighted = NO;
 }
 
+- (UIColor *)tintColor
+{
+    //for iOS 6
+    return super.tintColor ?: self.window.tintColor;
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeToWhite) object:nil];
-    self.backgroundColor = selectedColor;
+    self.backgroundColor = self.tintColor;
     self.titleLabel.textColor = [UIColor whiteColor];
 }
 

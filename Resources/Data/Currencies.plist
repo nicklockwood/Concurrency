@@ -6,15 +6,103 @@
 	<array>
 		<dict>
 			<key>code</key>
+			<string>ARS</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Argentine Peso</string>
+			<key>rate</key>
+			<real>8.9366000000000003</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>AWG</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Aruban Florin</string>
+			<key>rate</key>
+			<real>2.44407</real>
+		</dict>
+		<dict>
+			<key>code</key>
 			<string>AUD</string>
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Australian dollar</string>
+			<string>Australian Dollar</string>
 			<key>rate</key>
-			<real>1.4873000000000001</real>
-			<key>symbol</key>
-			<string></string>
+			<real>1.5325</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>BSD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Bahamian Dollar</string>
+			<key>rate</key>
+			<real>1.3653999999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>BHD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Bahraini Dinar</string>
+			<key>rate</key>
+			<real>0.51339000000000001</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>BDT</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Bangladeshi Taka</string>
+			<key>rate</key>
+			<real>105.5595</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>BBD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Barbadian Dollar</string>
+			<key>rate</key>
+			<real>2.7307999999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>BMD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Bermudian Dollar</string>
+			<key>rate</key>
+			<real>1.3653999999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>BOB</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Bolivian Boliviano</string>
+			<key>rate</key>
+			<real>9.4349000000000007</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>BAM</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Bosnia and Herzegovina convertible mark</string>
+			<key>rate</key>
+			<real>1.95583</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -22,23 +110,41 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Brazilian real</string>
+			<string>Brazilian Real</string>
 			<key>rate</key>
-			<real>3.1951000000000001</real>
+			<real>3.2602000000000002</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>GBP</string>
+			<key>enabled</key>
+			<true/>
+			<key>name</key>
+			<string>British Pound Sterling</string>
+			<key>rate</key>
+			<real>0.83120000000000005</real>
 			<key>symbol</key>
-			<string></string>
+			<string>£</string>
 		</dict>
 		<dict>
 			<key>code</key>
 			<string>BGN</string>
 			<key>enabled</key>
-			<true/>
+			<false/>
 			<key>name</key>
-			<string>Bulgarian lev</string>
+			<string>Bulgarian Lev</string>
 			<key>rate</key>
-			<real>1.9558</real>
-			<key>symbol</key>
-			<string></string>
+			<real>1.95583</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>KHR</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Cambodian Riel</string>
+			<key>rate</key>
+			<real>5475.2739000000001</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -46,23 +152,59 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Canadian dollar</string>
+			<string>Canadian Dollar</string>
 			<key>rate</key>
-			<real>1.4464999999999999</real>
-			<key>symbol</key>
-			<string></string>
+			<real>1.4562999999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>XAF</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Central African Franc</string>
+			<key>rate</key>
+			<real>655.95699999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>XPF</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>CFP Franc</string>
+			<key>rate</key>
+			<real>119.33174</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>CLP</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Chilean Peso</string>
+			<key>rate</key>
+			<real>722.89999999999998</real>
 		</dict>
 		<dict>
 			<key>code</key>
 			<string>CNY</string>
 			<key>enabled</key>
-			<true/>
+			<false/>
 			<key>name</key>
-			<string>Chinese yuan renminbi</string>
+			<string>Chinese Yuan</string>
 			<key>rate</key>
-			<real>8.2716999999999992</real>
-			<key>symbol</key>
-			<string></string>
+			<real>8.2619000000000007</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>COP</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Colombian Peso</string>
+			<key>rate</key>
+			<real>2652.2993000000001</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -70,23 +212,29 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Croatian kuna</string>
+			<string>Croatian Kuna</string>
 			<key>rate</key>
-			<real>7.6357999999999997</real>
-			<key>symbol</key>
-			<string></string>
+			<real>7.6432000000000002</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>CYP</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Cyprus Pound</string>
+			<key>rate</key>
+			<real>0.58526999999999996</real>
 		</dict>
 		<dict>
 			<key>code</key>
 			<string>CZK</string>
 			<key>enabled</key>
-			<true/>
+			<false/>
 			<key>name</key>
-			<string>Czech koruna</string>
+			<string>Czech Koruna</string>
 			<key>rate</key>
-			<real>27.468</real>
-			<key>symbol</key>
-			<string></string>
+			<real>27.509499999999999</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -94,17 +242,55 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Danish krone</string>
+			<string>Danish Krone</string>
 			<key>rate</key>
-			<real>7.4593999999999996</real>
-			<key>symbol</key>
-			<string></string>
+			<real>7.4603799999999998</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>DOP</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Dominican Peso</string>
+			<key>rate</key>
+			<real>58.302799999999998</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>XCD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>East Caribbean Dollar</string>
+			<key>rate</key>
+			<real>3.6865800000000002</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>EGP</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Egyptian Pound</string>
+			<key>rate</key>
+			<real>9.5070999999999994</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>EEK</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Estonia Kroon</string>
+			<key>rate</key>
+			<real>15.64664</real>
 		</dict>
 		<dict>
 			<key>code</key>
 			<string>EUR</string>
 			<key>enabled</key>
-			<false/>
+			<true/>
 			<key>name</key>
 			<string>Euro</string>
 			<key>rate</key>
@@ -114,15 +300,53 @@
 		</dict>
 		<dict>
 			<key>code</key>
+			<string>FJD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Fijian Dollar</string>
+			<key>rate</key>
+			<real>2.6130100000000001</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>GMD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Gambian Dalasi</string>
+			<key>rate</key>
+			<real>52.021900000000002</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>GHS</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Ghana Cedi</string>
+			<key>rate</key>
+			<real>3.0464500000000001</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>GTQ</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Guatemalan Quetzal</string>
+			<key>rate</key>
+			<real>10.73</real>
+		</dict>
+		<dict>
+			<key>code</key>
 			<string>HKD</string>
 			<key>enabled</key>
-			<true/>
+			<false/>
 			<key>name</key>
-			<string>Hong Kong dollar</string>
+			<string>Hong Kong Dollar</string>
 			<key>rate</key>
-			<real>10.526199999999999</real>
-			<key>symbol</key>
-			<string></string>
+			<real>10.581849999999999</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -130,11 +354,19 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Hungarian forint</string>
+			<string>Hungarian Forint</string>
 			<key>rate</key>
-			<real>302.89999999999998</real>
-			<key>symbol</key>
-			<string></string>
+			<real>298.19760000000002</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>ISK</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Icelandic Krona</string>
+			<key>rate</key>
+			<real>157.19909999999999</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -142,11 +374,9 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Indian rupee</string>
+			<string>Indian Rupee</string>
 			<key>rate</key>
-			<real>84.668999999999997</real>
-			<key>symbol</key>
-			<string></string>
+			<real>84.962299999999999</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -154,11 +384,9 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Indonesian rupiah</string>
+			<string>Indonesian Rupiah</string>
 			<key>rate</key>
-			<real>15945.049999999999</real>
-			<key>symbol</key>
-			<string></string>
+			<real>16596.498</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -166,23 +394,71 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Israeli shekel</string>
+			<string>Israeli Sheqel</string>
 			<key>rate</key>
-			<real>4.7817999999999996</real>
-			<key>symbol</key>
-			<string></string>
+			<real>4.7656000000000001</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>JMD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Jamaican Dollar</string>
+			<key>rate</key>
+			<real>144.66470000000001</real>
 		</dict>
 		<dict>
 			<key>code</key>
 			<string>JPY</string>
 			<key>enabled</key>
-			<false/>
+			<true/>
 			<key>name</key>
-			<string>Japanese yen</string>
+			<string>Japanese Yen</string>
 			<key>rate</key>
-			<real>139.31</real>
+			<real>142.96469999999999</real>
 			<key>symbol</key>
 			<string>¥</string>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>JOD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Jordanian Dinar</string>
+			<key>rate</key>
+			<real>0.96806999999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>KES</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Kenyan Shilling</string>
+			<key>rate</key>
+			<real>118.5172</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>KWD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Kuwaiti Dinar</string>
+			<key>rate</key>
+			<real>0.3861</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>LAK</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Lao Kip</string>
+			<key>rate</key>
+			<real>10953.9619</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -190,11 +466,19 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Latvian lats</string>
+			<string>Latvian Lats</string>
 			<key>rate</key>
 			<real>0.70279999999999998</real>
-			<key>symbol</key>
-			<string></string>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>LBP</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Lebanese Pound</string>
+			<key>rate</key>
+			<real>2058.3404999999998</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -202,11 +486,29 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Lithuanian litas</string>
+			<string>Lithuanian Litas</string>
 			<key>rate</key>
 			<real>3.4527999999999999</real>
-			<key>symbol</key>
-			<string></string>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>MKD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Macedonian Denar</string>
+			<key>rate</key>
+			<real>61.511499999999998</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>MGA</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Malagasy Ariary</string>
+			<key>rate</key>
+			<real>3071.4699999999998</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -214,11 +516,29 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Malaysian ringgit</string>
+			<string>Malaysian Ringgit</string>
 			<key>rate</key>
-			<real>4.3666999999999998</real>
-			<key>symbol</key>
-			<string></string>
+			<real>4.4874000000000001</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>MVR</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Maldivian Rufiyaa</string>
+			<key>rate</key>
+			<real>21.040900000000001</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>MUR</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Mauritian Rupee</string>
+			<key>rate</key>
+			<real>41.6449</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -226,23 +546,49 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Mexican peso</string>
+			<string>Mexican Peso</string>
 			<key>rate</key>
-			<real>17.979600000000001</real>
-			<key>symbol</key>
-			<string></string>
+			<real>17.9633</real>
 		</dict>
 		<dict>
 			<key>code</key>
-			<string>RON</string>
+			<string>MDL</string>
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>New Romanian leu</string>
+			<string>Moldovan Leu</string>
 			<key>rate</key>
-			<real>4.4617000000000004</real>
-			<key>symbol</key>
-			<string></string>
+			<real>17.770700000000001</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>MAD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Moroccan Dirham</string>
+			<key>rate</key>
+			<real>11.2288</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>NAD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Namibian Dollar</string>
+			<key>rate</key>
+			<real>14.5931</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>NPR</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Nepalese Rupee</string>
+			<key>rate</key>
+			<real>135.93968000000001</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -250,11 +596,19 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>New Zealand dollar</string>
+			<string>New Zealand Dollar</string>
 			<key>rate</key>
-			<real>1.6456999999999999</real>
-			<key>symbol</key>
-			<string></string>
+			<real>1.6692</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>NGN</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Nigerian Naira</string>
+			<key>rate</key>
+			<real>216.8263</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -262,11 +616,59 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Norwegian krone</string>
+			<string>Norwegian Krone</string>
 			<key>rate</key>
-			<real>8.2899999999999991</real>
-			<key>symbol</key>
-			<string></string>
+			<real>8.4229000000000003</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>OMR</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Omani Rial</string>
+			<key>rate</key>
+			<real>0.52498999999999996</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>PKR</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Pakistani Rupee</string>
+			<key>rate</key>
+			<real>144.05019999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>PAB</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Panamanian Balboa</string>
+			<key>rate</key>
+			<real>1.3653999999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>PYG</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Paraguayan Guaraní</string>
+			<key>rate</key>
+			<real>6288.5160999999998</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>PEN</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Peruvian Sol</string>
+			<key>rate</key>
+			<real>3.8313000000000001</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -274,11 +676,9 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Philippine peso</string>
+			<string>Philippine Peso</string>
 			<key>rate</key>
-			<real>59.402999999999999</real>
-			<key>symbol</key>
-			<string></string>
+			<real>60.7605</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -286,23 +686,29 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Polish zloty</string>
+			<string>Polish Zloty</string>
 			<key>rate</key>
-			<real>4.2031999999999998</real>
-			<key>symbol</key>
-			<string></string>
+			<real>4.1687000000000003</real>
 		</dict>
 		<dict>
 			<key>code</key>
-			<string>GBP</string>
+			<string>QAR</string>
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Pound sterling</string>
+			<string>Qatari Riyal</string>
 			<key>rate</key>
-			<real>0.82709999999999995</real>
-			<key>symbol</key>
-			<string>£</string>
+			<real>4.9700600000000001</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>RON</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Romanian Leu</string>
+			<key>rate</key>
+			<real>4.4954999999999998</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -310,11 +716,39 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Russian rouble</string>
+			<string>Russian Rouble</string>
 			<key>rate</key>
-			<real>45.149999999999999</real>
-			<key>symbol</key>
-			<string></string>
+			<real>45.213999999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>SAR</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Saudi Riyal</string>
+			<key>rate</key>
+			<real>5.1202500000000004</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>RSD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Serbian Dinar</string>
+			<key>rate</key>
+			<real>114.7559</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>SCR</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Seychellois Rupee</string>
+			<key>rate</key>
+			<real>16.466799999999999</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -322,11 +756,9 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Singapore dollar</string>
+			<string>Singapore Dollar</string>
 			<key>rate</key>
-			<real>1.7022999999999999</real>
-			<key>symbol</key>
-			<string></string>
+			<real>1.7306999999999999</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -334,11 +766,9 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>South African rand</string>
+			<string>South African Rand</string>
 			<key>rate</key>
-			<real>14.0306</real>
-			<key>symbol</key>
-			<string></string>
+			<real>14.5931</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -346,23 +776,29 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>South Korean won</string>
+			<string>South Korean Won</string>
 			<key>rate</key>
-			<real>1440.3399999999999</real>
-			<key>symbol</key>
-			<string></string>
+			<real>1439.4713999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>LKR</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Sri Lankan Rupee</string>
+			<key>rate</key>
+			<real>178.49260000000001</real>
 		</dict>
 		<dict>
 			<key>code</key>
 			<string>SEK</string>
 			<key>enabled</key>
-			<true/>
+			<false/>
 			<key>name</key>
-			<string>Swedish krona</string>
+			<string>Swedish Krona</string>
 			<key>rate</key>
-			<real>8.8676999999999992</real>
-			<key>symbol</key>
-			<string></string>
+			<real>8.8957999999999995</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -370,35 +806,89 @@
 			<key>enabled</key>
 			<false/>
 			<key>name</key>
-			<string>Swiss franc</string>
+			<string>Swiss Franc</string>
 			<key>rate</key>
-			<real>1.2286999999999999</real>
-			<key>symbol</key>
-			<string></string>
+			<real>1.2296</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>SYP</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Syrian Pound</string>
+			<key>rate</key>
+			<real>193.06829999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>TWD</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Taiwanese Dollar</string>
+			<key>rate</key>
+			<real>40.891100000000002</real>
 		</dict>
 		<dict>
 			<key>code</key>
 			<string>THB</string>
 			<key>enabled</key>
-			<true/>
+			<false/>
 			<key>name</key>
-			<string>Thai baht</string>
+			<string>Thai Baht</string>
 			<key>rate</key>
-			<real>43.695</real>
-			<key>symbol</key>
-			<string></string>
+			<real>45.0242</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>TND</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Tunisian Dinar</string>
+			<key>rate</key>
+			<real>2.2563</real>
 		</dict>
 		<dict>
 			<key>code</key>
 			<string>TRY</string>
 			<key>enabled</key>
-			<true/>
+			<false/>
 			<key>name</key>
-			<string>Turkish lira</string>
+			<string>Turkish Lira</string>
 			<key>rate</key>
-			<real>2.7675000000000001</real>
-			<key>symbol</key>
-			<string></string>
+			<real>2.9687000000000001</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>UGX</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Ugandan Shilling</string>
+			<key>rate</key>
+			<real>3447.6477</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>UAH</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Ukraine Hryvnia</string>
+			<key>rate</key>
+			<real>11.2441</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>AED</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>United Arab Emirates Dirham</string>
+			<key>rate</key>
+			<real>5.0144299999999999</real>
 		</dict>
 		<dict>
 			<key>code</key>
@@ -406,14 +896,54 @@
 			<key>enabled</key>
 			<true/>
 			<key>name</key>
-			<string>US dollar</string>
+			<string>United States Dollar</string>
 			<key>rate</key>
-			<real>1.3577999999999999</real>
+			<real>1.3653999999999999</real>
 			<key>symbol</key>
 			<string>$</string>
 		</dict>
+		<dict>
+			<key>code</key>
+			<string>UYU</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Uruguayan Peso</string>
+			<key>rate</key>
+			<real>28.837399999999999</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>VEF</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Venezuelan Bolívar</string>
+			<key>rate</key>
+			<real>8.6020199999999996</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>VND</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>Vietnamese Dong</string>
+			<key>rate</key>
+			<real>28762.2559</real>
+		</dict>
+		<dict>
+			<key>code</key>
+			<string>XOF</string>
+			<key>enabled</key>
+			<false/>
+			<key>name</key>
+			<string>West African Franc</string>
+			<key>rate</key>
+			<real>655.95699999999999</real>
+		</dict>
 	</array>
 	<key>lastUpdated</key>
-	<date>2013-12-03T22:17:48Z</date>
+	<date>2014-01-02T21:09:12Z</date>
 </dict>
 </plist>

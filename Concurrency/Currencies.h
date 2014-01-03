@@ -21,6 +21,7 @@ extern NSString *const CurrenciesUpdatedNotification;
 @property (nonatomic, strong, readonly) NSDate *lastUpdated;
 
 - (Currency *)currencyForCode:(NSString *)code;
+- (NSArray *)currenciesMatchingSearchString:(NSString *)searchString;
 - (void)updateWithBlock:(void (^)(void))block;
 - (void)update;
 
