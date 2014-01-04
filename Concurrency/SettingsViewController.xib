@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
-            <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" scopeBarBackgroundImage="Clear.png" id="isR-D7-p2Q" customClass="SearchBar">
+            <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" id="isR-D7-p2Q" customClass="SearchBar">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet"/>
@@ -47,7 +47,4 @@
             </connections>
         </tapGestureRecognizer>
     </objects>
-    <resources>
-        <image name="Clear.png" width="320" height="44"/>
-    </resources>
 </document>

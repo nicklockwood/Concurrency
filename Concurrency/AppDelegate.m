@@ -41,18 +41,21 @@
     //wiggle the cube controller
     [controller wiggle];
     
-    //create subtle gradient behind status bar
-    dispatch_async(dispatch_get_main_queue(), ^(void){
-        
-        CAGradientLayer *layer = [CAGradientLayer layer];
-        layer.frame = CGRectMake(0, 0, 320, 25);
-        layer.startPoint = CGPointZero;
-        layer.endPoint = CGPointMake(0.0f, 1.0f);
-        layer.colors = @[(__bridge id)[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f].CGColor,
-                         (__bridge id)[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.9f].CGColor,
-                         (__bridge id)[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.0f].CGColor];
-        [self.window.layer addSublayer:layer];
-    });
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f)
+    {
+        //create subtle gradient behind status bar
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            
+            CAGradientLayer *layer = [CAGradientLayer layer];
+            layer.frame = CGRectMake(0, 0, 320, 25);
+            layer.startPoint = CGPointZero;
+            layer.endPoint = CGPointMake(0.0f, 1.0f);
+            layer.colors = @[(__bridge id)[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f].CGColor,
+                             (__bridge id)[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.9f].CGColor,
+                             (__bridge id)[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.0f].CGColor];
+            [self.window.layer addSublayer:layer];
+        });
+    }
 
     return YES;
 }

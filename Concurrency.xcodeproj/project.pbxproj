@@ -100,7 +100,7 @@
 		01412D22177B711C0070C4B2 /* NumberPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberPad.h; sourceTree = "<group>"; };
 		01412D23177B711C0070C4B2 /* NumberPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberPad.m; sourceTree = "<group>"; };
 		01412D27177B71A60070C4B2 /* NumberField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberField.h; sourceTree = "<group>"; };
-		01412D28177B71A60070C4B2 /* NumberField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NumberField.m; path = ../../Concurrency/NumberField.m; sourceTree = "<group>"; };
+		01412D28177B71A60070C4B2 /* NumberField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberField.m; sourceTree = "<group>"; };
 		0149D7BD177C248100884EB3 /* Currencies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Currencies.h; sourceTree = "<group>"; };
 		0149D7BE177C248100884EB3 /* Currencies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Currencies.m; sourceTree = "<group>"; };
 		0149D7C2177C24C900884EB3 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
@@ -284,6 +284,7 @@
 				01412D23177B711C0070C4B2 /* NumberPad.m */,
 				01412D21177B6F4A0070C4B2 /* NumberPad.xib */,
 				01412D27177B71A60070C4B2 /* NumberField.h */,
+				01412D28177B71A60070C4B2 /* NumberField.m */,
 				01856E14177C7F56001FBB6D /* PickerCellView.h */,
 				01856E15177C7F56001FBB6D /* PickerCellView.m */,
 				01856E11177C7EA3001FBB6D /* PickerCellView.xib */,
@@ -360,7 +361,6 @@
 			children = (
 				01856E21177CAEA5001FBB6D /* ViewUtils.h */,
 				01856E22177CAEA5001FBB6D /* ViewUtils.m */,
-				01412D28177B71A60070C4B2 /* NumberField.m */,
 			);
 			path = ViewUtils;
 			sourceTree = "<group>";

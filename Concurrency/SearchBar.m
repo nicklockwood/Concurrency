@@ -12,7 +12,36 @@
 
 - (void)awakeFromNib
 {
-    [self.subviews[0] removeFromSuperview];
+    [super awakeFromNib];
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0f)
+    {
+        //remove the background view
+        [[self.subviews firstObject] removeFromSuperview];
+        
+        //set textfield return key to "done"
+        for (UITextField *textfield in self.subviews)
+        {
+            if ([textfield isKindOfClass:[UITextField class]])
+            {
+                textfield.returnKeyType = UIReturnKeyDone;
+                break;
+            }
+        }
+    }
+    else
+    {
+        //on iOS 7 there's an extra wrapper view
+        for (UITextField *textfield in [[self.subviews firstObject] subviews])
+        {
+            if ([textfield isKindOfClass:[UITextField class]])
+            {
+                //use "return" on iOS 7 because blue button looks fugly
+                textfield.returnKeyType = UIReturnKeyDefault;
+                break;
+            }
+        }
+    }
 }
-     
+    
 @end

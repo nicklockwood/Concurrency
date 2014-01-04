@@ -72,6 +72,11 @@
     [self update];
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+}
+
 - (void)refresh
 {
     [self.refreshControl beginRefreshing];
