@@ -16,6 +16,7 @@
 {
     if (![self instancesRespondToSelector:@selector(tintColor)])
     {
+        //implement tintColor on iOS 6
         Method m = class_getInstanceMethod(self, @selector(CCC_tintColor));
         class_addMethod(self, @selector(tintColor), method_getImplementation(m), method_getTypeEncoding(m));
         m = class_getInstanceMethod(self, @selector(CCC_setTintColor:));
