@@ -9,11 +9,13 @@
 #import "Currency.h"
 #import "Currencies.h"
 
+
 @interface Currency ()
 
 @property (nonatomic, strong) NSNumberFormatter *numberFormatter;
 
 @end
+
 
 @implementation Currency
 
@@ -28,10 +30,24 @@
     return currency;
 }
 
+- (NSNumberFormatter *)numberFormatter
+{
+    if (!_numberFormatter)
+    {
+        _numberFormatter = [[NSNumberFormatter alloc] init];
+        [_numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        [_numberFormatter setCurrencySymbol:@""]; //currency symbol is displayed separately
+    }
+    return _numberFormatter;
+}
+
 - (void)setCode:(NSString *)code
 {
     _code = code;
-    [self configureNumberFormatter];
+    
+    NSString *localeIdentifier = [NSLocale localeIdentifierFromComponents:@{NSLocaleCurrencyCode: code}];
+    NSLocale *locale = [NSLocale localeWithLocaleIdentifier:localeIdentifier];
+    [self.numberFormatter setLocale:locale];
 }
 
 - (void)setSymbol:(NSString *)symbol
@@ -56,10 +72,7 @@
 
 - (NSString *)localisedStringFromValue:(double)value
 {
-    if (self.numberFormatter) {
-        return [self.numberFormatter stringFromNumber:[NSNumber numberWithDouble:value]];
-    }
-    return nil;
+    return [self.numberFormatter stringFromNumber:@(value)];
 }
 
 - (NSUInteger)hash
@@ -77,16 +90,6 @@
 - (void)save
 {
     [[Currencies sharedInstance] save];
-}
-
-- (void)configureNumberFormatter
-{
-    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:[NSLocale localeIdentifierFromComponents:@{NSLocaleCurrencyCode: self.code}]];
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setLocale:locale];
-    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [numberFormatter setCurrencySymbol:@""]; // Since the currency symbol is displayed separately
-    self.numberFormatter = numberFormatter;
 }
 
 @end

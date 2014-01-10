@@ -1,6 +1,12 @@
+Version 1.1.1
+
+- Currency display is now localised
+
 Version 1.1
 
 - Now supports an additional 56 currencies!
+- Added currency search feature 
+- New color scheme (iOS 7 only)
 
 Version 1.0.1
 

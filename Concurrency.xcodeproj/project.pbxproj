@@ -31,6 +31,7 @@
 		01271EE9177B73DA007A186E /* NumberField.m in Sources */ = {isa = PBXBuildFile; fileRef = 01412D28177B71A60070C4B2 /* NumberField.m */; };
 		01271EEB177B73EB007A186E /* NumberPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 01412D23177B711C0070C4B2 /* NumberPad.m */; };
 		01271EED177B7403007A186E /* NumberPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01412D21177B6F4A0070C4B2 /* NumberPad.xib */; };
+		012AC958188030CC00569235 /* UIWindow+Gradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 012AC957188030CC00569235 /* UIWindow+Gradient.m */; };
 		0134E150177CACF20007BF1A /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0134E14F177CACF20007BF1A /* iCarousel.m */; };
 		01412CE3177AD4D80070C4B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01412CE2177AD4D80070C4B2 /* Foundation.framework */; };
 		01412CE5177AD4D80070C4B2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01412CE4177AD4D80070C4B2 /* CoreGraphics.framework */; };
@@ -83,6 +84,8 @@
 		0107C294182981AA00D0EFDB /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		0107C295182981AA00D0EFDB /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		01226C7618343D89009A980F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		012AC956188030CC00569235 /* UIWindow+Gradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Gradient.h"; sourceTree = "<group>"; };
+		012AC957188030CC00569235 /* UIWindow+Gradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Gradient.m"; sourceTree = "<group>"; };
 		0134E14E177CACF20007BF1A /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		0134E14F177CACF20007BF1A /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		01412CDF177AD4D80070C4B2 /* Concurrency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concurrency.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -325,6 +328,8 @@
 				016EA7301875E1DD0005FADC /* CubeController+Wiggle.m */,
 				016EA73618771FF50005FADC /* UIView+TintColor.h */,
 				016EA73718771FF50005FADC /* UIView+TintColor.m */,
+				012AC956188030CC00569235 /* UIWindow+Gradient.h */,
+				012AC957188030CC00569235 /* UIWindow+Gradient.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -490,6 +495,7 @@
 				0107C297182981AA00D0EFDB /* iRate.m in Sources */,
 				01856E23177CAEA5001FBB6D /* ViewUtils.m in Sources */,
 				01412CEF177AD4D80070C4B2 /* main.m in Sources */,
+				012AC958188030CC00569235 /* UIWindow+Gradient.m in Sources */,
 				0149D7BF177C248100884EB3 /* Currencies.m in Sources */,
 				01271EE9177B73DA007A186E /* NumberField.m in Sources */,
 				0134E150177CACF20007BF1A /* iCarousel.m in Sources */,

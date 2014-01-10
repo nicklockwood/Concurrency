@@ -19,7 +19,7 @@
 
 @implementation CubeController (Wiggle)
 
-- (void)wiggle
+- (void)wiggleWithCompletionBlock:(void (^)(BOOL finished))block
 {
     double speed = 1.5;
     double amplitude = 1.0;
@@ -31,26 +31,38 @@
         
     } completion:^(BOOL finished) {
         
-        if (!finished || self.wiggleCancelled) return;
+        if (!finished || self.wiggleCancelled)
+        {
+            if (block) block(NO);
+            return;
+        }
         [UIView animateWithDuration:0.7 / speed delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
             
             self.scrollView.contentOffset = CGPointMake(-50 * amplitude, 0);
             
         } completion:^(BOOL finished) {
             
-            if (!finished || self.wiggleCancelled) return;
+            if (!finished || self.wiggleCancelled)
+            {
+                if (block) block(NO);
+                return;
+            }
             [UIView animateWithDuration:0.5 / speed delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
                 
                 self.scrollView.contentOffset = CGPointMake(20 * amplitude, 0);
                 
             } completion:^(BOOL finished) {
                 
-                if (!finished || self.wiggleCancelled) return;
+                if (!finished || self.wiggleCancelled)
+                {
+                    if (block) block(NO);
+                    return;
+                }
                 [UIView animateWithDuration:0.7 / speed delay:0.0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
                     
                     self.scrollView.contentOffset = CGPointZero;
                     
-                } completion:NULL];
+                } completion:block];
             }];
         }];
     }];

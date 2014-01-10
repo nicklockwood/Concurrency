@@ -10,7 +10,7 @@
 
 @interface CubeController (Wiggle)
 
-- (void)wiggle;
+- (void)wiggleWithCompletionBlock:(void (^)(BOOL finished))block;
 - (void)cancelWiggle;
 
 @end

@@ -11,6 +11,7 @@
 #import "MainViewController.h"
 #import "SettingsViewController.h"
 #import "CubeController+Wiggle.h"
+#import "UIWindow+Gradient.h"
 #import "Currencies.h"
 #import "ViewUtils.h"
 
@@ -24,8 +25,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //set global tint
-    self.window.tintColor = [UIColor colorWithRed:100.0f/255 green:200.0f/255 blue:100.0f/255 alpha:1];
+    //set window tint and gradient
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f)
+    {
+        self.window.tintColor = [UIColor colorWithRed:100.0f/255 green:200.0f/255 blue:100.0f/255 alpha:1];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            [self.window addGradientLayer];
+        });
+    }
     
     //set up cube controller
     CubeController *controller = (CubeController *)self.window.rootViewController;
@@ -39,25 +46,18 @@
     [controller.view addGestureRecognizer:gesture];
     
     //wiggle the cube controller
-    [controller wiggle];
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f)
-    {
-        //create subtle gradient behind status bar
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            
-            CAGradientLayer *layer = [CAGradientLayer layer];
-            layer.frame = CGRectMake(0, 0, 320, 25);
-            layer.startPoint = CGPointZero;
-            layer.endPoint = CGPointMake(0.0f, 1.0f);
-            layer.colors = @[(__bridge id)[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:1.0f].CGColor,
-                             (__bridge id)[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.9f].CGColor,
-                             (__bridge id)[UIColor colorWithRed:1.0f green:1.0f blue:1.0f alpha:0.0f].CGColor];
-            [self.window.layer addSublayer:layer];
-        });
-    }
+    [controller wiggleWithCompletionBlock:^(BOOL finished) {
+        [controller.view removeGestureRecognizer:gesture];
+    }];
 
     return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    [gestureRecognizer.view removeGestureRecognizer:gestureRecognizer];
+    [(CubeController *)self.window.rootViewController cancelWiggle];
+    return NO;
 }
 
 - (NSInteger)numberOfViewControllersInCubeController:(CubeController *)cubeController
@@ -112,13 +112,6 @@
             [[[UIAlertView alloc] initWithTitle:@"No Currencies Selected" message:@"Please select at least two currencies in order to use the converter." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         });
     }
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    [gestureRecognizer.view removeGestureRecognizer:gestureRecognizer];
-    [(CubeController *)self.window.rootViewController cancelWiggle];
-    return NO;
 }
 
 @end
