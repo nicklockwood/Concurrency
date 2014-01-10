@@ -9,6 +9,11 @@
 #import "Currency.h"
 #import "Currencies.h"
 
+@interface Currency ()
+
+@property (nonatomic, strong) NSNumberFormatter *numberFormatter;
+
+@end
 
 @implementation Currency
 
@@ -21,6 +26,12 @@
     });
     
     return currency;
+}
+
+- (void)setCode:(NSString *)code
+{
+    _code = code;
+    [self configureNumberFormatter];
 }
 
 - (void)setSymbol:(NSString *)symbol
@@ -43,6 +54,14 @@
     return [currency valueFromEuros:[self valueInEuros:value]];
 }
 
+- (NSString *)localisedStringFromValue:(double)value
+{
+    if (self.numberFormatter) {
+        return [self.numberFormatter stringFromNumber:[NSNumber numberWithDouble:value]];
+    }
+    return nil;
+}
+
 - (NSUInteger)hash
 {
     return [_code hash];
@@ -58,6 +77,16 @@
 - (void)save
 {
     [[Currencies sharedInstance] save];
+}
+
+- (void)configureNumberFormatter
+{
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:[NSLocale localeIdentifierFromComponents:@{NSLocaleCurrencyCode: self.code}]];
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setLocale:locale];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [numberFormatter setCurrencySymbol:@""]; // Since the currency symbol is displayed separately
+    self.numberFormatter = numberFormatter;
 }
 
 @end

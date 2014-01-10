@@ -21,5 +21,6 @@
 - (double)valueInEuros:(double)value;
 - (double)valueFromEuros:(double)euroValue;
 - (double)value:(double)value convertedToCurrency:(Currency *)currency;
+- (NSString *)localisedStringFromValue:(double)value;
 
 @end
