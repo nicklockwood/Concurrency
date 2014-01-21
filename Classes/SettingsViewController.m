@@ -28,14 +28,16 @@
     [super viewDidLoad];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-        
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 7.0)
     {
         self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
         self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(20, 0, 0, 0);
         
         //yuck! this horrible hack is needed to avoid a jitter during wiggle animation
-        double delayInSeconds = 0.5;
+        double delayInSeconds = 1;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             self.tableView.contentOffset = CGPointMake(0, -20);

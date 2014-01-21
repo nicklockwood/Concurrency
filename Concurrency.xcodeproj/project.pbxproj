@@ -39,6 +39,8 @@
 		01412CEF177AD4D80070C4B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01412CEE177AD4D80070C4B2 /* main.m */; };
 		01412CF3177AD4D80070C4B2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01412CF2177AD4D80070C4B2 /* AppDelegate.m */; };
 		01412CF9177AD4D80070C4B2 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01412CF8177AD4D80070C4B2 /* MainViewController.m */; };
+		01414E351884384F001AC4E7 /* iVersion.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 01414E321884384F001AC4E7 /* iVersion.bundle */; };
+		01414E361884384F001AC4E7 /* iVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 01414E341884384F001AC4E7 /* iVersion.m */; };
 		0149D7BF177C248100884EB3 /* Currencies.m in Sources */ = {isa = PBXBuildFile; fileRef = 0149D7BE177C248100884EB3 /* Currencies.m */; };
 		0149D7C4177C24C900884EB3 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0149D7C3177C24C900884EB3 /* BaseModel.m */; };
 		016EA7311875E1DD0005FADC /* CubeController+Wiggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 016EA7301875E1DD0005FADC /* CubeController+Wiggle.m */; };
@@ -104,6 +106,9 @@
 		01412D23177B711C0070C4B2 /* NumberPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberPad.m; sourceTree = "<group>"; };
 		01412D27177B71A60070C4B2 /* NumberField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberField.h; sourceTree = "<group>"; };
 		01412D28177B71A60070C4B2 /* NumberField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberField.m; sourceTree = "<group>"; };
+		01414E321884384F001AC4E7 /* iVersion.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iVersion.bundle; sourceTree = "<group>"; };
+		01414E331884384F001AC4E7 /* iVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iVersion.h; sourceTree = "<group>"; };
+		01414E341884384F001AC4E7 /* iVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iVersion.m; sourceTree = "<group>"; };
 		0149D7BD177C248100884EB3 /* Currencies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Currencies.h; sourceTree = "<group>"; };
 		0149D7BE177C248100884EB3 /* Currencies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Currencies.m; sourceTree = "<group>"; };
 		0149D7C2177C24C900884EB3 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
@@ -200,7 +205,7 @@
 			children = (
 				01412D1B177B3AAE0070C4B2 /* Libraries */,
 				01E7ECB918292E740083F979 /* Resources */,
-				01412CE8177AD4D80070C4B2 /* Concurrency */,
+				01412CE8177AD4D80070C4B2 /* Classes */,
 				01412CE1177AD4D80070C4B2 /* Frameworks */,
 				01412CE0177AD4D80070C4B2 /* Products */,
 			);
@@ -224,7 +229,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		01412CE8177AD4D80070C4B2 /* Concurrency */ = {
+		01412CE8177AD4D80070C4B2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				016EA72E1875E1AF0005FADC /* Categories */,
@@ -233,7 +238,7 @@
 				01412D24177B71470070C4B2 /* Controllers */,
 				01412CE9177AD4D80070C4B2 /* Supporting Files */,
 			);
-			path = Concurrency;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		01412CE9177AD4D80070C4B2 /* Supporting Files */ = {
@@ -249,6 +254,7 @@
 		01412D1B177B3AAE0070C4B2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				01414E311884384F001AC4E7 /* iVersion */,
 				0107C292182981AA00D0EFDB /* iRate */,
 				0181519A1780CA2400BB4970 /* XMLDictionary */,
 				018151861780997500BB4970 /* CubeController */,
@@ -299,6 +305,16 @@
 				018151A317816ADD00BB4970 /* CurrencyCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		01414E311884384F001AC4E7 /* iVersion */ = {
+			isa = PBXGroup;
+			children = (
+				01414E321884384F001AC4E7 /* iVersion.bundle */,
+				01414E331884384F001AC4E7 /* iVersion.h */,
+				01414E341884384F001AC4E7 /* iVersion.m */,
+			);
+			path = iVersion;
 			sourceTree = "<group>";
 		};
 		0149D7BC177C245100884EB3 /* Model */ = {
@@ -450,6 +466,7 @@
 				0100D384182AEACB000FD0BC /* Icon.png in Resources */,
 				0100D37D182AEACB000FD0BC /* Icon-72@2x.png in Resources */,
 				0100D376182AEACB000FD0BC /* Default-568h@2x.png in Resources */,
+				01414E351884384F001AC4E7 /* iVersion.bundle in Resources */,
 				01271EED177B7403007A186E /* NumberPad.xib in Resources */,
 				01226C7718343D89009A980F /* Main.storyboard in Resources */,
 				0181518C17809C6F00BB4970 /* MainViewController.xib in Resources */,
@@ -483,6 +500,7 @@
 				0181519D1780CA2400BB4970 /* XMLDictionary.m in Sources */,
 				016EA7311875E1DD0005FADC /* CubeController+Wiggle.m in Sources */,
 				016EA73818771FF50005FADC /* UIView+TintColor.m in Sources */,
+				01414E361884384F001AC4E7 /* iVersion.m in Sources */,
 				018151A117816AC100BB4970 /* CurrencyCell.m in Sources */,
 				016EA73D187723B40005FADC /* SearchBar.m in Sources */,
 				0149D7C4177C24C900884EB3 /* BaseModel.m in Sources */,
@@ -586,8 +604,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Concurrency/Concurrency-Prefix.pch";
-				INFOPLIST_FILE = "Concurrency/Concurrency-Info.plist";
+				GCC_PREFIX_HEADER = "Classes/Concurrency-Prefix.pch";
+				INFOPLIST_FILE = "Classes/Concurrency-Info.plist";
 				PRODUCT_NAME = Concurrency;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -600,8 +618,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Concurrency/Concurrency-Prefix.pch";
-				INFOPLIST_FILE = "Concurrency/Concurrency-Info.plist";
+				GCC_PREFIX_HEADER = "Classes/Concurrency-Prefix.pch";
+				INFOPLIST_FILE = "Classes/Concurrency-Info.plist";
 				PRODUCT_NAME = Concurrency;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
