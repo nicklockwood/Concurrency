@@ -62,7 +62,7 @@
     self.nameLabel.text = currency.name ?: @"-";
     self.nameLabel.text = currency.name;
     self.accessoryType = currency.enabled? UITableViewCellAccessoryCheckmark: UITableViewCellAccessoryNone;
-    self.backgroundColor = currency.enabled? [[[self class] tintColor] colorBlendedWithColor:[UIColor whiteColor] factor: 0.85]: [UIColor whiteColor];
+    self.backgroundView.backgroundColor = currency.enabled? [[[self class] tintColor] colorBlendedWithColor:[UIColor whiteColor] factor: 0.85]: [UIColor whiteColor];
 }
 
 @end

@@ -14,7 +14,9 @@
 
 @interface SettingsViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) IBOutlet UILabel *footer;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, copy) NSArray *currencies;
 @property (nonatomic, copy) NSString *searchString;
 
@@ -26,26 +28,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //add refresh control
     self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.hidden = YES; //hide control initially
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 7.0)
-    {
-        self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
-        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(20, 0, 0, 0);
-        
-        //yuck! this horrible hack is needed to avoid a jitter during wiggle animation
-        double delayInSeconds = 1;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            self.tableView.contentOffset = CGPointMake(0, -20);
-        });
-    }
-    
-    self.tableView.tableFooterView = self.footer;
+    [self.tableView addSubview:self.refreshControl];
+
+    //set up data
     [self update];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    //show refresh control as soon as scrolling begins
+    self.refreshControl.hidden = NO;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

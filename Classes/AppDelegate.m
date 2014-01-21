@@ -25,14 +25,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //set window tint and gradient
+    //set window tint
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0f)
     {
         self.window.tintColor = [UIColor colorWithRed:100.0f/255 green:200.0f/255 blue:100.0f/255 alpha:1];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            [self.window addGradientLayer];
-        });
     }
+    
+    //add window gradient
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self.window addGradientLayer];
+    });
     
     //set up cube controller
     CubeController *controller = (CubeController *)self.window.rootViewController;
@@ -51,6 +53,11 @@
     }];
 
     return YES;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    self.window.rootViewController.view.frame = self.window.bounds;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch

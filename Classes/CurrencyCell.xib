@@ -30,12 +30,17 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="backgroundView" destination="vXq-42-P5v" id="Bq4-cH-bQ5"/>
                 <outlet property="nameLabel" destination="hPr-xU-hGp" id="6d0-ya-I1h"/>
                 <outlet property="selectedBackgroundView" destination="oNq-Tl-pd1" id="tkV-k8-9dg"/>
                 <outlet property="symbolLabel" destination="cYf-Uc-nVC" id="CFW-FL-ma9"/>
             </connections>
         </tableViewCell>
         <view contentMode="scaleToFill" id="oNq-Tl-pd1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        </view>
+        <view contentMode="scaleToFill" id="vXq-42-P5v">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
         </view>

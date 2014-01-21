@@ -26,7 +26,7 @@
 
 - (UIColor *)CCC_tintColor
 {
-    return [UIColor colorWithRed:0 green:122.0/255 blue:1 alpha:1];
+    return [UIColor colorWithRed:0 green:85.0/255 blue:165.0/255 alpha:1];
 }
 
 - (void)CCC_setTintColor:(UIColor *)color
