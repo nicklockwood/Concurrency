@@ -10,4 +10,6 @@
 
 @interface NumberField : UITextField
 
+@property (nonatomic, assign) double doubleValue;
+
 @end

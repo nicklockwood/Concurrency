@@ -59,6 +59,7 @@
 		01856E1B177CAD3D001FBB6D /* PickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01856E1A177CAD3D001FBB6D /* PickerView.m */; };
 		01856E1E177CAE3F001FBB6D /* PickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01856E1D177CAE3F001FBB6D /* PickerView.xib */; };
 		01856E23177CAEA5001FBB6D /* ViewUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 01856E22177CAEA5001FBB6D /* ViewUtils.m */; };
+		01A657DB188FC8580060550D /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A657DA188FC8580060550D /* Settings.m */; };
 		01E7EDB718292E750083F979 /* Currencies.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01E7ECBB18292E740083F979 /* Currencies.plist */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +142,8 @@
 		01856E1D177CAE3F001FBB6D /* PickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerView.xib; sourceTree = "<group>"; };
 		01856E21177CAEA5001FBB6D /* ViewUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewUtils.h; sourceTree = "<group>"; };
 		01856E22177CAEA5001FBB6D /* ViewUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewUtils.m; sourceTree = "<group>"; };
+		01A657D9188FC8580060550D /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		01A657DA188FC8580060550D /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		01E7ECBB18292E740083F979 /* Currencies.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Currencies.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -324,6 +327,8 @@
 				018151961780C26700BB4970 /* Currency.m */,
 				0149D7BD177C248100884EB3 /* Currencies.h */,
 				0149D7BE177C248100884EB3 /* Currencies.m */,
+				01A657D9188FC8580060550D /* Settings.h */,
+				01A657DA188FC8580060550D /* Settings.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -498,6 +503,7 @@
 			files = (
 				01856E16177C7F56001FBB6D /* PickerCellView.m in Sources */,
 				0181519D1780CA2400BB4970 /* XMLDictionary.m in Sources */,
+				01A657DB188FC8580060550D /* Settings.m in Sources */,
 				016EA7311875E1DD0005FADC /* CubeController+Wiggle.m in Sources */,
 				016EA73818771FF50005FADC /* UIView+TintColor.m in Sources */,
 				01414E361884384F001AC4E7 /* iVersion.m in Sources */,

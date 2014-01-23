@@ -10,7 +10,7 @@
 
 @interface NumberPad : UIView
 
-@property (nonatomic, weak) UITextField *textField;
+@property (nonatomic, weak) UITextField *inputField;
 
 + (instancetype)instance;
 

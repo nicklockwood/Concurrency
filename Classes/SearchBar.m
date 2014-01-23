@@ -13,21 +13,15 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
-    //use "return" on iOS 7 because blue button looks fugly
-    UIReturnKeyType returnKeyType = UIReturnKeyDefault;
-    
+
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0f)
     {
-        //remove the background view
+        //remove the search bar background view on iOS 6
         [[self.subviews firstObject] removeFromSuperview];
-        
-        //set textfield return key to "done" as this looks OK with blue theme
-        returnKeyType = UIReturnKeyDone;
     }
 
-    //set return key type
-    ((UITextField *)[self viewOfClass:[UITextField class]]).returnKeyType = returnKeyType;
+    //use "return" button on keyboard because blue button looks fugly, especially on iOS 7
+    ((UITextField *)[self viewOfClass:[UITextField class]]).returnKeyType = UIReturnKeyDefault;
 }
     
 @end

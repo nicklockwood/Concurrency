@@ -10,14 +10,11 @@
 #import "Currencies.h"
 
 
-@interface Currency ()
-
-@property (nonatomic, strong) NSNumberFormatter *numberFormatter;
-
-@end
-
-
 @implementation Currency
+{
+    //not a property, because we don't want to save it
+    NSNumberFormatter *_numberFormatter;
+}
 
 + (instancetype)nullCurrency
 {
@@ -47,7 +44,7 @@
     
     NSString *localeIdentifier = [NSLocale localeIdentifierFromComponents:@{NSLocaleCurrencyCode: code}];
     NSLocale *locale = [NSLocale localeWithLocaleIdentifier:localeIdentifier];
-    [self.numberFormatter setLocale:locale];
+    [[self numberFormatter] setLocale:locale];
 }
 
 - (void)setSymbol:(NSString *)symbol
@@ -72,7 +69,7 @@
 
 - (NSString *)localisedStringFromValue:(double)value
 {
-    return [self.numberFormatter stringFromNumber:@(value)];
+    return [[self numberFormatter] stringFromNumber:@(value)];
 }
 
 - (NSUInteger)hash

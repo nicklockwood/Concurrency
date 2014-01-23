@@ -33,17 +33,17 @@
 
 - (IBAction)pressedButton:(UIButton *)sender
 {
-    [self.textField insertText:sender.titleLabel.text];
+    [self.inputField insertText:sender.titleLabel.text];
 }
 
 - (IBAction)pressedDelete
 {
-    [self.textField deleteBackward];
+    [self.inputField deleteBackward];
 }
 
 - (IBAction)heldDelete
 {
-    self.textField.text = nil;
+    self.inputField.text = nil;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer

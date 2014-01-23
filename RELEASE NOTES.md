@@ -1,6 +1,8 @@
 Version 1.1.1
 
 - Currency display is now localised
+- Improved appearance on iOS 6
+- UI state is now saved between launches
 
 Version 1.1
 

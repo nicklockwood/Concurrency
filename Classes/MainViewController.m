@@ -11,6 +11,7 @@
 #import "Currencies.h"
 #import "NumberPad.h"
 #import "ViewUtils.h"
+#import "Settings.h"
 
 
 @interface MainViewController () <PickerViewDelegate>
@@ -30,14 +31,35 @@
 {
     [super viewDidLoad];
     
+    //set up number pad
     self.numberPad = [NumberPad instance];
     self.numberPad.layer.rasterizationScale = 2;
-    self.topPicker.selected = YES;
     
+    //set up labels
     self.fromCurrencyLabel.font = [self.fromCurrencyLabel.font fontWithSize:13];
     self.toCurrencyLabel.font = [self.toCurrencyLabel.font fontWithSize:13];
     
-    [self currenciesUpdated];
+    //update pickers
+    [self.topPicker reloadData];
+    [self.bottomPicker reloadData];
+    
+    //restore state
+    self.topPicker.selectedIndex = [Settings sharedInstance].topPickerIndex;
+    self.bottomPicker.selectedIndex = [Settings sharedInstance].bottomPickerIndex;
+    self.topPicker.selected = ![Settings sharedInstance].bottomPickerSelected;
+    self.bottomPicker.selected = [Settings sharedInstance].bottomPickerSelected;
+    if (self.topPicker.selected)
+    {
+        self.topPicker.currencyValue = [Settings sharedInstance].currencyValue;
+        [self.bottomPicker setValue:self.topPicker.currencyValue forCurrency:self.topPicker.currency];
+    }
+    else
+    {
+        self.bottomPicker.currencyValue = [Settings sharedInstance].currencyValue;
+        [self.topPicker setValue:self.bottomPicker.currencyValue forCurrency:self.bottomPicker.currency];
+    }
+    
+    //observe currency updates
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(currenciesUpdated)
                                                  name:CurrenciesUpdatedNotification
@@ -60,7 +82,33 @@
 {
     [self.topPicker reloadData];
     [self.bottomPicker reloadData];
-    [self pickerViewCurrencyDidChange:nil];
+    [self updateCurrencyLabels];
+    if (self.topPicker.selected)
+    {
+        [self.bottomPicker setValue:self.topPicker.currencyValue forCurrency:self.topPicker.currency];
+    }
+    else
+    {
+        [self.topPicker setValue:self.bottomPicker.currencyValue forCurrency:self.bottomPicker.currency];
+    }
+    
+    //persist state
+    [Settings sharedInstance].topPickerIndex = self.topPicker.selectedIndex;
+    [Settings sharedInstance].bottomPickerIndex = self.bottomPicker.selectedIndex;
+}
+
+- (void)updateCurrencyLabels
+{
+    NSString *from = self.topPicker.currency.name;
+    NSString *to = self.bottomPicker.currency.name;
+    if (self.bottomPicker.selected)
+    {
+        NSString *temp = from;
+        from = to;
+        to = temp;
+    }
+    self.fromCurrencyLabel.text = from;
+    self.toCurrencyLabel.text = to;
 }
 
 - (IBAction)dismissKeyboard
@@ -89,10 +137,10 @@
     }
 }
 
-- (void)pickerViewDidAcceptFirstResponder:(PickerView *)pickerView
+- (void)pickerViewDidAcceptFirstResponder:(PickerView *)pickerView inputField:(id)inputField
 {
     [self.view addSubview:self.numberPad];
-    self.numberPad.textField = pickerView.inputField;
+    self.numberPad.inputField = inputField;
     if (pickerView == self.bottomPicker)
     {
         self.numberPad.layer.shouldRasterize = NO;
@@ -132,32 +180,40 @@
     
     //update labels
     [self pickerViewCurrencyDidChange:pickerView];
+    
+    //persist state
+    [Settings sharedInstance].bottomPickerSelected = (pickerView == self.bottomPicker);
 }
 
 - (void)pickerViewCurrencyDidChange:(PickerView *)pickerView
 {
-    NSString *from = self.topPicker.currency.name;
-    NSString *to = self.bottomPicker.currency.name;
-    if (self.bottomPicker.selected)
+    [self updateCurrencyLabels];
+    
+    //persist state
+    if (pickerView == self.topPicker)
     {
-        NSString *temp = from;
-        from = to;
-        to = temp;
+        [Settings sharedInstance].topPickerIndex = pickerView.selectedIndex;
     }
-    self.fromCurrencyLabel.text = from;
-    self.toCurrencyLabel.text = to;
+    else
+    {
+        [Settings sharedInstance].bottomPickerIndex = pickerView.selectedIndex;
+    }
 }
 
 - (void)pickerViewValueDidChange:(PickerView *)pickerView
 {
+    //sync values
     if (pickerView == self.topPicker)
     {
-        self.bottomPicker.euroValue = pickerView.euroValue;
+        [self.bottomPicker setValue:pickerView.currencyValue forCurrency:pickerView.currency];
     }
     else
     {
-        self.topPicker.euroValue = pickerView.euroValue;
+        [self.topPicker setValue:pickerView.currencyValue forCurrency:pickerView.currency];
     }
-}
     
+    //persist state
+    [Settings sharedInstance].currencyValue = pickerView.currencyValue;
+}
+
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Currency.h"
+#import "NumberField.h"
 
 
 @class PickerView;
@@ -15,7 +16,7 @@
 
 @protocol PickerViewDelegate <NSObject>
 
-- (void)pickerViewDidAcceptFirstResponder:(PickerView *)pickerView;
+- (void)pickerViewDidAcceptFirstResponder:(PickerView *)pickerView inputField:(id)inputView;
 - (void)pickerViewDidResignFirstResponder:(PickerView *)pickerView;
 - (void)pickerViewCurrencyDidChange:(PickerView *)pickerView;
 - (void)pickerViewValueDidChange:(PickerView *)pickerView;
@@ -27,9 +28,9 @@
 
 @property (nonatomic, weak) IBOutlet id<PickerViewDelegate> delegate;
 
-@property (nonatomic, weak, readonly) UITextField *inputField;
-@property (nonatomic, copy, readonly) Currency *currency;
-@property (nonatomic, assign) double euroValue;
+@property (nonatomic, assign) NSUInteger selectedIndex;
+@property (nonatomic, readonly) Currency *currency;
+@property (nonatomic, assign) double currencyValue;
 @property (nonatomic, assign) BOOL selected;
 
 - (void)setValue:(double)value forCurrency:(Currency *)currency;

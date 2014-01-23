@@ -35,6 +35,16 @@
     }
 }
 
+- (void)setDoubleValue:(double)doubleValue
+{
+    self.text = [NSString stringWithFormat:@"%0.2f", doubleValue];
+}
+
+- (double)doubleValue
+{
+    return [self.text doubleValue];
+}
+
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
     if (action == @selector(cut:) ||

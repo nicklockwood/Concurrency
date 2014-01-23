@@ -15,9 +15,9 @@
 @interface PickerView () <iCarouselDataSource, iCarouselDelegate, UITextFieldDelegate>
 
 @property (nonatomic, copy) NSArray *currencies;
-@property (nonatomic, weak) IBOutlet iCarousel *carousel;
-@property (nonatomic, weak) IBOutlet UITextField *inputField;
-@property (nonatomic, weak) IBOutlet UIView *overlayView;
+@property (nonatomic, strong) IBOutlet iCarousel *carousel;
+@property (nonatomic, strong) IBOutlet NumberField *inputField;
+@property (nonatomic, strong) IBOutlet UIView *overlayView;
 
 @end
 
@@ -62,19 +62,12 @@
     return self;
 }
 
-- (void)textDidChange
-{
-    [self setValue:[self.inputField.text doubleValue] forCurrency:self.currency];
-    [self.delegate pickerViewValueDidChange:self];
-}
-
 - (void)setSelected:(BOOL)selected
 {
     _selected = selected;
     if (selected)
     {
-        double value = [self.currency valueFromEuros:self.euroValue];
-        self.inputField.text = [NSString stringWithFormat:@"%0.2f", value];
+        self.inputField.doubleValue = self.currencyValue;
         self.inputField.backgroundColor = [UIColor whiteColor];
     }
     [self.overlayView crossfadeWithDuration:0.4 completion:^{
@@ -88,6 +81,16 @@
     self.overlayView.alpha = selected? 1.0f: 0.0f;
 }
 
+- (void)setSelectedIndex:(NSUInteger)selectedIndex
+{
+    self.carousel.currentItemIndex = selectedIndex;
+}
+
+- (NSUInteger)selectedIndex
+{
+    return self.carousel.currentItemIndex;
+}
+
 - (IBAction)dismissKeyboard
 {
     [self.inputField resignFirstResponder];
@@ -95,8 +98,7 @@
 
 - (IBAction)reloadData
 {
-    Currency *currency = self.currency;
-    
+    //update currencies
     NSMutableArray *currencies = [NSMutableArray array];
     if ([[Currencies sharedInstance].enabledCurrencies count])
     {
@@ -114,6 +116,7 @@
     }
     self.currencies = currencies;
     
+    //reload cells
     if (self.carousel.numberOfItems == [self numberOfItemsInCarousel:self.carousel])
     {
         [self.carousel.indexesForVisibleItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -125,30 +128,41 @@
         [self.carousel reloadData];
     }
     
-    NSInteger index = [self.currencies indexOfObject:currency];
-    if (index != NSNotFound && currency != self.currencies[self.carousel.currentItemIndex])
+    //update selected currency
+    Currency *oldCurrency = self.currency;
+    [self updateCurrency];
+    
+    //scroll to previously selected currency (if appropriate)
+    NSInteger index = [self.currencies indexOfObject:oldCurrency];
+    if (index != NSNotFound && oldCurrency != self.currencies[self.carousel.currentItemIndex])
     {
         [self.carousel scrollToItemAtIndex:index animated:NO];
     }
 }
 
-- (Currency *)currency
+- (void)updateCurrency
 {
-    return [self.currencies count]? self.currencies[self.carousel.currentItemIndex]: nil;
+    _currency = [self.currencies count]? self.currencies[self.selectedIndex]: nil;
+}
+
+- (void)setCurrencyValue:(double)currencyValue
+{
+    [self setCurrencyValue:currencyValue updateField:YES];
+}
+
+- (void)setCurrencyValue:(double)currencyValue updateField:(BOOL)update
+{
+    if (_currencyValue != currencyValue)
+    {
+        _currencyValue = currencyValue;
+        if (update && self.selected) self.inputField.doubleValue = _currencyValue;
+        [self reloadData];
+    }
 }
 
 - (void)setValue:(double)value forCurrency:(Currency *)currency
 {
-    self.euroValue = [currency valueInEuros:value];
-}
-
-- (void)setEuroValue:(double)euroValue
-{
-    if (_euroValue != euroValue)
-    {
-        _euroValue = euroValue;
-        [self reloadData];
-    }
+    self.currencyValue = [currency value:value convertedToCurrency:self.currency];
 }
 
 - (BOOL)resignFirstResponder
@@ -156,24 +170,30 @@
     return [self.inputField resignFirstResponder];
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
+- (void)textDidChange
+{
+    [self setCurrencyValue:[self.inputField.text doubleValue] updateField:NO];
+    [self.delegate pickerViewValueDidChange:self];
+}
+
+- (void)textFieldDidBeginEditing:(NumberField *)textField
 {
     self.selected = YES;
     [textField performSelectorOnMainThread:@selector(selectAll:) withObject:nil waitUntilDone:NO];
      
-    [self.delegate pickerViewDidAcceptFirstResponder:self];
+    [self.delegate pickerViewDidAcceptFirstResponder:self inputField:self.inputField];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+- (BOOL)textFieldShouldReturn:(NumberField *)textField
 {
     [self resignFirstResponder];
     return NO;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
+- (void)textFieldDidEndEditing:(NumberField *)textField
 {
-    [self setValue:[textField.text doubleValue] forCurrency:self.currency];
-    textField.text = [NSString stringWithFormat:@"%0.2f", [textField.text doubleValue]];
+    textField.doubleValue = textField.doubleValue;
+    self.currencyValue = textField.doubleValue;
     [self.delegate pickerViewValueDidChange:self];
     [self.delegate pickerViewDidResignFirstResponder:self];
 }
@@ -191,7 +211,7 @@
     }
     
     Currency *currency = self.currencies[index];
-    double value = [currency valueFromEuros:self.euroValue];
+    double value = [self.currency value:self.currencyValue convertedToCurrency:currency];
     [view configureWithCurrency:currency value:value];
 
     return view;
@@ -199,10 +219,19 @@
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
 {
+    Currency *oldCurrency = self.currency;
+    [self updateCurrency];
+    
     if (self.selected)
     {
-        [self setValue:[self.inputField.text doubleValue] forCurrency:self.currency];
         [self.delegate pickerViewValueDidChange:self];
+        [self.carousel.indexesForVisibleItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [self.carousel reloadItemAtIndex:[obj integerValue] animated:NO];
+        }];
+    }
+    else
+    {
+        self.currencyValue = [oldCurrency value:self.currencyValue convertedToCurrency:self.currency];
     }
     [self.delegate pickerViewCurrencyDidChange:self];
 }
