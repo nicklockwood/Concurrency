@@ -25,6 +25,11 @@ static NSString *const UpdateURL = @"http://themoneyconverter.com/rss-feed/EUR/r
     [self performSelectorOnMainThread:@selector(sharedInstance) withObject:nil waitUntilDone:NO];
 }
 
++ (BMFileFormat)saveFormat
+{
+    return BMFileFormatXMLPropertyList;
+}
+
 - (void)setWithDictionary:(NSDictionary *)dict
 {
     //set last updated date
@@ -42,13 +47,13 @@ static NSString *const UpdateURL = @"http://themoneyconverter.com/rss-feed/EUR/r
     _lastUpdated = date;
     
     //set currencies
-    _allCurrencies = [[Currency instancesWithArray:dict[@"currencies"]] sortedArrayUsingComparator:^NSComparisonResult(Currency *a, Currency *b) {
+    _currencies = [[Currency instancesWithArray:dict[@"currencies"]] sortedArrayUsingComparator:^NSComparisonResult(Currency *a, Currency *b) {
         
         return [a.name caseInsensitiveCompare:b.name];
     }];
     
     //set currencies by code
-    _currenciesByCode = [NSMutableDictionary dictionaryWithObjects:_allCurrencies forKeys:[_allCurrencies valueForKeyPath:@"code"]];
+    _currenciesByCode = [NSMutableDictionary dictionaryWithObjects:_currencies forKeys:[_currencies valueForKeyPath:@"code"]];
     
     //download update
     [self update];
@@ -65,19 +70,19 @@ static NSString *const UpdateURL = @"http://themoneyconverter.com/rss-feed/EUR/r
     if ([searchString length])
     {
         searchString = [searchString lowercaseString];
-        return [self.allCurrencies filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Currency *currency, __unused id bindings) {
+        return [self.currencies filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(Currency *currency, __unused id bindings) {
             return [[currency.name lowercaseString] rangeOfString:searchString].length || [[currency.code lowercaseString] hasPrefix:searchString];
         }]];
     }
     else
     {
-        return self.allCurrencies;
+        return self.currencies;
     }
 }
 
 - (NSArray *)enabledCurrencies
 {
-    return [_allCurrencies filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"enabled=YES"]];
+    return [_currencies filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"enabled=YES"]];
 }
 
 - (void)updateWithBlock:(void (^)(void))block
@@ -116,7 +121,7 @@ static NSString *const UpdateURL = @"http://themoneyconverter.com/rss-feed/EUR/r
             }
             
             _lastUpdated = [NSDate date];
-            _allCurrencies = [[_currenciesByCode allValues] sortedArrayUsingComparator:^NSComparisonResult(Currency *a, Currency *b) {
+            _currencies = [[_currenciesByCode allValues] sortedArrayUsingComparator:^NSComparisonResult(Currency *a, Currency *b) {
                 
                 return [a.name caseInsensitiveCompare:b.name];
             }];
@@ -133,11 +138,10 @@ static NSString *const UpdateURL = @"http://themoneyconverter.com/rss-feed/EUR/r
     [self updateWithBlock:NULL];
 }
 
-- (BOOL)writeToFile:(NSString *)path atomically:(BOOL)atomically
+- (BOOL)save
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:CurrenciesUpdatedNotification object:self];
-    NSMutableArray *currencies = [_allCurrencies valueForKeyPath:@"dictionaryRepresentation"];
-    return [@{@"lastUpdated": _lastUpdated, @"currencies": currencies} writeToFile:path atomically:atomically];
+    return [super save];
 }
 
 - (void)dealloc

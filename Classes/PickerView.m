@@ -18,6 +18,7 @@
 @property (nonatomic, strong) IBOutlet iCarousel *carousel;
 @property (nonatomic, strong) IBOutlet NumberField *inputField;
 @property (nonatomic, strong) IBOutlet UIView *overlayView;
+@property (nonatomic, strong) IBOutlet UIView *spacerView;
 
 @end
 
@@ -198,22 +199,23 @@
     [self.delegate pickerViewDidResignFirstResponder:self];
 }
 
-- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
+- (NSInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
     return [self.currencies count];
 }
 
-- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(PickerCellView *)view
+- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(PickerCellView *)view
 {
     if (!view)
     {
-        view = [[PickerCellView nib] instantiateWithOwner:self options:nil][0];
+        view = [[[PickerCellView nib] instantiateWithOwner:self options:nil] firstObject];
     }
     
     Currency *currency = self.currencies[index];
     double value = [self.currency value:self.currencyValue convertedToCurrency:currency];
     [view configureWithCurrency:currency value:value];
 
+    view.width = self.spacerView.width;
     return view;
 }
 

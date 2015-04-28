@@ -11,12 +11,14 @@
 #import "MainViewController.h"
 #import "SettingsViewController.h"
 #import "CubeController+Wiggle.h"
-#import "UIWindow+Gradient.h"
+#import "UIViewController+Gradient.h"
 #import "Currencies.h"
 #import "ViewUtils.h"
 
 
-@interface AppDelegate () <CubeControllerDataSource, CubeControllerDelegate, UIGestureRecognizerDelegate>
+@interface AppDelegate () <CubeControllerDataSource, CubeControllerDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
+
+@property (nonatomic, strong) id visibleAlert;
 
 @end
 
@@ -28,16 +30,16 @@
     //set window tint (does nothing on iOS 6)
     self.window.tintColor = [UIColor colorWithRed:100.0f/255 green:200.0f/255 blue:100.0f/255 alpha:1];
 
-    //add window gradient
-    dispatch_async(dispatch_get_main_queue(), ^(void){
-        [self.window addGradientLayer];
-    });
-    
     //set up cube controller
     CubeController *controller = (CubeController *)self.window.rootViewController;
     controller.dataSource = self;
     controller.delegate = self;
     controller.view.backgroundColor = [UIColor whiteColor];
+    
+    //add window gradient
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [controller addGradientLayer];
+    });
     
     //add tap gesture for cancelling wiggle animation
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:nil action:NULL];
@@ -113,8 +115,43 @@
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            [[[UIAlertView alloc] initWithTitle:@"No Currencies Selected" message:@"Please select at least two currencies in order to use the converter." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            if (!self.visibleAlert)
+            {
+                NSString *title = @"No Currencies Selected";
+                NSString *message = @"Please select at least two currencies in order to use the converter.";
+                NSString *button = @"OK";
+                
+                if ([UIAlertController class])
+                {
+                    self.visibleAlert = [UIAlertController alertControllerWithTitle:title
+                                                                            message:message
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    [self.visibleAlert addAction:[UIAlertAction actionWithTitle:button style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                        self.visibleAlert = nil;
+                    }]];
+                    
+                    [self.window.rootViewController presentViewController:self.visibleAlert animated:YES completion:NULL];
+                }
+                else
+                {
+                    self.visibleAlert = [[UIAlertView alloc] initWithTitle:title
+                                                                   message:message
+                                                                  delegate:self
+                                                         cancelButtonTitle:button
+                                                         otherButtonTitles:nil];
+                    [self.visibleAlert show];
+                }
+            }
         });
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (alertView == self.visibleAlert)
+    {
+        self.visibleAlert = nil;
     }
 }
 

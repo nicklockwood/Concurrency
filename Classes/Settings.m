@@ -9,39 +9,36 @@
 #import "Settings.h"
 
 
-@interface BaseModel (Private)
-
-//bit hacky that we're exposing this in this way
-//a future version of BaseModel will expose this
-+ (NSArray *)BM_propertyKeys;
-
-@end
-
-
 @implementation Settings
 {
     BOOL _saveScheduled;
-    BOOL _observersAdded;
+}
+
++ (BMFileFormat)saveFormat
+{
+    return BMFileFormatUserDefaults;
 }
 
 - (void)setUp
 {
     //add observers for properties, so we can save automatically
-    for (NSString *key in [[self class] BM_propertyKeys])
+    for (NSString *key in [[self class] codablePropertyKeys])
     {
-        //set value from user defaults
-        id value = [[NSUserDefaults standardUserDefaults] valueForKey:key];
-        if (value) [self setValue:value forKey:key];
-        
-        //observe setters
         [self addObserver:self forKeyPath:key options:(NSKeyValueObservingOptions)0 context:NULL];
     }
-    _observersAdded = YES;
+}
+
+- (void)tearDown
+{
+    //remove observers
+    for (NSString *key in [[self class] codablePropertyKeys])
+    {
+        [self removeObserver:self forKeyPath:key];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(__unused NSDictionary *)change context:(__unused void *)context
 {
-    [[NSUserDefaults standardUserDefaults] setObject:[self valueForKey:keyPath] forKey:keyPath];
     if (!_saveScheduled)
     {
         _saveScheduled = YES;
@@ -49,22 +46,10 @@
     }
 }
 
-- (void)save
+- (BOOL)save
 {
-    [[NSUserDefaults standardUserDefaults] synchronize];
     _saveScheduled = NO;
-}
-
-- (void)dealloc
-{
-    if (_observersAdded)
-    {
-        for (NSString *key in [[self class] BM_propertyKeys])
-        {
-            //remove observers
-            [self removeObserver:self forKeyPath:key];
-        }
-    }
+    return [super save];
 }
 
 @end

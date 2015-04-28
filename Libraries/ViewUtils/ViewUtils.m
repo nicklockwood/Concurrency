@@ -1,7 +1,7 @@
 //
 //  ViewUtils.m
 //
-//  Version 1.1.1
+//  Version 1.1.3
 //
 //  Created by Nick Lockwood on 19/11/2011.
 //  Copyright (c) 2011 Charcoal Design
@@ -32,6 +32,15 @@
 
 #import "ViewUtils.h"
 #import <QuartzCore/QuartzCore.h>
+
+
+#pragma GCC diagnostic ignored "-Wgnu"
+
+
+#import <Availability.h>
+#if !__has_feature(objc_arc)
+#error This class requires automatic reference counting
+#endif
 
 
 @implementation UIView (ViewUtils)
@@ -66,14 +75,13 @@
     if (nib)
     {
         //attempt to load from nib
-        NSArray *contents = [nib instantiateWithOwner:owner options:nil];
-        UIView *view = [contents count]? [contents objectAtIndex:0]: nil;
+        UIView *view = [[nib instantiateWithOwner:owner options:nil] firstObject];
         NSAssert ([view isKindOfClass:self], @"First object in nib '%@' was '%@'. Expected '%@'", nibName, view, self);
         return view;
     }
     
     //return empty view
-    return [[[self class] alloc] init];
+    return [[self alloc] init];
 }
 
 - (void)loadContentsWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)bundleOrNil
@@ -468,7 +476,7 @@
     [self crossfadeWithDuration:duration];
     if (completion)
     {
-        dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC);
+        dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC));
         dispatch_after(time, dispatch_get_main_queue(), completion);
     }
 }

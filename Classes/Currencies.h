@@ -16,7 +16,7 @@ extern NSString *const CurrenciesUpdatedNotification;
 
 @interface Currencies : BaseModel
 
-@property (nonatomic, copy, readonly) NSArray *allCurrencies;
+@property (nonatomic, copy, readonly) NSArray *currencies;
 @property (nonatomic, copy, readonly) NSArray *enabledCurrencies;
 @property (nonatomic, strong, readonly) NSDate *lastUpdated;
 

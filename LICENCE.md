@@ -1,17 +1,15 @@
 Concurrency
 
-Version 1.0.1, December 11th, 2013
+Version 1.1.1, December 11th, 2013
 
 Copyright (C) 2013 Charcoal Design
 
-Redistribution and use in source form with or without modification, is
-permitted provided that the following conditions are met:
+Redistribution in binary form is not permitted without specific prior written
+permission from the copyright holders.
 
-* Redistributions of the source code must retain this copyright notice and the
-  following disclaimer.
-  
-* Redistribution in binary form is not permitted without specific prior written
-  permission from the copyright holders.
+Redistribution and use in source form with or without modification, is
+permitted provided that the following conditions are met: Redistributions of the
+source code must retain this copyright notice and the following disclaimer.
  
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED

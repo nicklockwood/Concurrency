@@ -33,6 +33,7 @@
     
     //set up number pad
     self.numberPad = [NumberPad instance];
+    self.numberPad.width = [UIScreen mainScreen].bounds.size.width;
     self.numberPad.layer.rasterizationScale = 2;
     
     //set up labels

@@ -1,5 +1,5 @@
 //
-//  UIWindow+Gradient.h
+//  UIViewController+Gradient.h
 //  Concurrency
 //
 //  Created by Nick Lockwood on 10/01/2014.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIWindow (Gradient)
+@interface UIViewController (Gradient)
 
 - (void)addGradientLayer;
 

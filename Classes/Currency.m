@@ -84,9 +84,9 @@
     return [object.code isEqualToString:self.code];
 }
 
-- (void)save
+- (BOOL)save
 {
-    [[Currencies sharedInstance] save];
+    return [[Currencies sharedInstance] save];
 }
 
 @end
