@@ -100,6 +100,7 @@
         case kCGColorSpaceModelIndexed:
         case kCGColorSpaceModelLab:
         case kCGColorSpaceModelPattern:
+        case kCGColorSpaceModelXYZ:
         case kCGColorSpaceModelUnknown:
         {
         

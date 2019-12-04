@@ -28,6 +28,7 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [(UIButton *)[self viewWithTag:12] setTitleColor:self.tintColor forState:UIControlStateNormal];
 }
 
