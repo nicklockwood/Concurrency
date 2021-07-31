@@ -62,12 +62,12 @@ static const NSUInteger BMStringDescriptionMaxLength = 16;
 
 - (id)BM_propertyListRepresentation
 {
-    return [NSKeyedArchiver archivedDataWithRootObject:self];
+    return [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:YES error:nil];
 }
 
 - (id)BM_JSONRepresentation
 {
-    return [[NSKeyedArchiver archivedDataWithRootObject:self] BM_JSONRepresentation];
+    return [[NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:YES error:nil] BM_JSONRepresentation];
 }
 
 - (id)BM_objectFromPropertyListOrJSON
@@ -161,7 +161,7 @@ static const NSUInteger BMStringDescriptionMaxLength = 16;
     if ([object respondsToSelector:@selector(objectForKey:)] && object[@"$archiver"])
     {
         //unarchive object
-        return [NSKeyedUnarchiver unarchiveObjectWithData:self];
+        return [NSKeyedUnarchiver unarchivedObjectOfClass:[self class] fromData:self error:nil];
     }
     return self;
 }
@@ -971,7 +971,7 @@ static const NSUInteger BMStringDescriptionMaxLength = 16;
     {
         case BMFileFormatKeyedArchive:
         {
-            data = [NSKeyedArchiver archivedDataWithRootObject:self];
+            data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:YES error:nil];
             break;
         }
         case BMFileFormatXMLPropertyList:

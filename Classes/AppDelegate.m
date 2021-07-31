@@ -135,23 +135,14 @@
                 }
                 else
                 {
-                    self.visibleAlert = [[UIAlertView alloc] initWithTitle:title
-                                                                   message:message
-                                                                  delegate:self
-                                                         cancelButtonTitle:button
-                                                         otherButtonTitles:nil];
-                    [self.visibleAlert show];
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:button style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    [alert addAction:cancelAction];
                 }
             }
         });
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (alertView == self.visibleAlert)
-    {
-        self.visibleAlert = nil;
     }
 }
 

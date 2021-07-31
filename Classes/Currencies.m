@@ -89,8 +89,7 @@ static NSString *const UpdateURL = @"http://themoneyconverter.com/rss-feed/EUR/r
 {
     NSURL *URL = [NSURL URLWithString:UpdateURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        
+    [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSDictionary *xmlDict = [NSDictionary dictionaryWithXMLData:data];
         if (xmlDict)
         {
