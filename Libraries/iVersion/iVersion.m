@@ -762,7 +762,7 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:iTunesServiceURL]
                                                      cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                  timeoutInterval:REQUEST_TIMEOUT];
-            [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
                 if (data && statusCode == 200)
                 {
@@ -901,7 +901,7 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
                             }
                             
                             NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.remoteVersionsPlistURL] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:REQUEST_TIMEOUT];
-                            [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                            NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                                 if (data)
                                 {
                                     NSDictionary *plistVersions = nil;
@@ -938,6 +938,8 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
                                     NSLog(@"iVersion was unable to download the user-specified release notes");
                                 }
                             }];
+                            
+                            [task resume];
                         }
                     }
                     else if (statusCode >= 400)
@@ -953,6 +955,8 @@ static NSString *const iVersionMacAppStoreURLFormat = @"macappstore://itunes.app
                 [self performSelectorOnMainThread:@selector(setLastChecked:) withObject:[NSDate date] waitUntilDone:YES];
                 [self performSelectorOnMainThread:@selector(downloadedVersionsData) withObject:nil waitUntilDone:YES];
             }];
+            
+            [task resume];
         }
     }
 }

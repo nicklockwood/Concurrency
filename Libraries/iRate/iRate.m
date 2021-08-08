@@ -690,7 +690,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
         }
         
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:iTunesServiceURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:REQUEST_TIMEOUT];
-        [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
             if (data && statusCode == 200)
             {
@@ -799,6 +799,8 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
             //finished
             checking = NO;
         }];
+        
+        [task resume];
     }
 }
 
